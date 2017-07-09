@@ -10,7 +10,7 @@
 
 Dates::Dates() {
     this->dates = std::vector<std::string>();
-    /*dates.push_back("10_7_2016");
+    dates.push_back("10_7_2016");
      dates.push_back("10_10_2016");
      dates.push_back("10_11_2016");
      dates.push_back("10_12_2016");
@@ -39,7 +39,7 @@ Dates::Dates() {
      dates.push_back("12_22_2016");
      dates.push_back("12_23_2016");
      dates.push_back("12_27_2016");
-     dates.push_back("12_30_2016");*/
+     dates.push_back("12_30_2016");
     dates.push_back("1_3_2017");
     dates.push_back("1_4_2017");
     dates.push_back("1_5_2017");

@@ -10,6 +10,8 @@
 
 bool Constants::logTicks = false;
 bool Constants::logCandles = false;
+bool Constants::logBuySell = false;
+bool Constants::logProfits = true;
 
 bool Constants::clearOrderAtDayEnd = false;
 

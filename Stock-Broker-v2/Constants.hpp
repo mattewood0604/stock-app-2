@@ -15,6 +15,8 @@ class Constants {
 public:
     static bool logTicks;
     static bool logCandles;
+    static bool logBuySell;
+    static bool logProfits;
 
     static bool clearOrderAtDayEnd;
 

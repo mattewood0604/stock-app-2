@@ -17,6 +17,7 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
     if (!symbolFile->is_open())
     {
         std::cout << "ERROR OPENING SYMBOL FILE FOR READING QUOTES" << std::endl;
+        std::cout << strerror(errno) << std::endl;
         return;
     }
 
@@ -37,6 +38,8 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
             lastNewlineIndex = i;
         }
     }
+
+    symbolFile->close();
 
     delete [] symbolFileData;
 }
