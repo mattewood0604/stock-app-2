@@ -16,9 +16,7 @@ public:
     enum FROM { JSON, CSV };
 
     Tick();
-    Tick(const std::string& _symbol, const std::string& _json, FROM _from = JSON);
-
-    void writeToFile() const;
+    Tick(const std::string& _json, const std::string& _symbol = "", FROM _from = JSON);
 
     void log() const;
     std::string toCSV() const;

@@ -33,7 +33,7 @@ Tick::Tick() {
     this->offerQty = 0;
 }
 
-Tick::Tick(const std::string& _symbol, const std::string& _json, FROM _from) {
+Tick::Tick(const std::string& _json, const std::string& _symbol, FROM _from) {
     if (_from == CSV) {
         this->fromCSV(_symbol, _json);
         return;
@@ -92,10 +92,6 @@ void Tick::fromCSV(const std::string& _symbol, const std::string& _quote) {
     value = _quote.substr(lastCommaIndex + 1, commaIndex - lastCommaIndex);
     this->offerQty = stoi(value);
     lastCommaIndex = commaIndex;
-}
-
-void Tick::writeToFile() const {
-    //FileManager::writeTickToFile(*this);
 }
 
 void Tick::log() const {

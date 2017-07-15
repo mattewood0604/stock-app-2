@@ -41,6 +41,18 @@ void Stock::clearData() {
     this->candles.push_back(Candle(this->maxCandleTime));
 }
 
+void Stock::mockRestCall(unsigned int& _marketTime) {
+    if (this->getTotalTicks() == 0) {
+        return;
+    }
+
+    const Tick& tick = this->ticks[_marketTime];
+    this->addTickToCandle(tick);
+
+    this->indicators();
+    this->order();
+}
+
 void Stock::addTick(const Tick& _tick) {
     _tick.log();
     this->ticks.push_back(_tick);
@@ -73,7 +85,7 @@ void Stock::indicators() {
     }
 
     BuySell zigZag = this->zigZag->indicator(*this);
-//    zigZag.isBuy = false;
+    //zigZag.isBuy = false;
     this->buySell.merge(zigZag);
 
     BuySell onYourMark = this->onYourMark->indicator(*this);
@@ -133,10 +145,6 @@ void Stock::resetDailyProfits() {
 
 const std::string& Stock::getSymbol() const {
     return this->symbol;
-}
-
-const Tick& Stock::getTick(const unsigned int &_time) const {
-    return this->ticks[_time];
 }
 
 const unsigned int Stock::getTotalTicks() const {

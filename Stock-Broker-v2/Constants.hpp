@@ -13,14 +13,18 @@
 
 class Constants {
 public:
-    static bool logTicks;
-    static bool logCandles;
-    static bool logBuySell;
-    static bool logProfits;
+    static const bool logTicks;
+    static const bool logCandles;
+    static const bool logBuySell;
+    static const bool logProfits;
+    static const bool logResponse;
 
-    static bool clearOrderAtDayEnd;
+    static const bool clearOrderAtDayEnd;
 
-    static std::string parentDirectory;
+    static const std::string readDirectory;
+    static const std::string writeDirectory;
+
+    static const std::string stocksForQuotesAsCsv;
 
 private:
     Constants();

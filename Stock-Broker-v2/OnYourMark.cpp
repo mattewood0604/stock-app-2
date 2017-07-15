@@ -48,6 +48,7 @@ bool OnYourMark::determineSignal(Stock& _stock, unsigned int offset) {
     float kijun = (high + low) / 2.0;
     unsigned int index = (unsigned int)_stock.candles.size() - 1;
     float averagePercent = ((kijun - _stock.candles[index - offset].getClose()) / kijun) * 10000;
+    std::cout << averagePercent << std::endl;
 
     float lastAveragePercent = ((kijun - _stock.candles[index - offset - 1].getClose()) / kijun) * 10000;
     return low < kijun && averagePercent < this->readySignalPercent && averagePercent > 0 && lastAveragePercent < averagePercent;
@@ -81,6 +82,11 @@ BuySell OnYourMark::indicator(Stock& _stock) {
     }
 
     if (_stock.candles.size() <= this->crossPeriods + this->kijunPeriods + 1) {
+        return buySell;
+    }
+
+    const Candle& currentCandle = _stock.candles[_stock.candles.size() - 1];
+    if (currentCandle.getClose() == 0) {
         return buySell;
     }
 

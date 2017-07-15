@@ -11,8 +11,49 @@
 
 #include <iostream>
 
+std::map<std::string, std::map<std::string, std::vector<Tick>>> FileManager::stockTicksForDate;
+std::map<std::string, std::ofstream*> FileManager::writeFiles;
+
+std::string FileManager::writeDirectory = "";
+
+
+void FileManager::initForWriting() {
+    FileManager::writeDirectory = Constants::writeDirectory;
+
+    time_t currentTime = time(0);
+    struct tm* now = localtime(&currentTime);
+
+    std::string month = (now->tm_mon + 1 < 10) ? std::to_string(now->tm_mon + 1).insert(0, "0") : std::to_string(now->tm_mon + 1);
+    std::string day = (now->tm_mday < 10) ? std::to_string(now->tm_mday).insert(0, "0") : std::to_string(now->tm_mday);
+
+    FileManager::writeDirectory.append(month);
+    FileManager::writeDirectory.append("_");
+    FileManager::writeDirectory.append(day);
+    FileManager::writeDirectory.append("_");
+    FileManager::writeDirectory.append(std::to_string(now->tm_year + 1900));
+    FileManager::writeDirectory.append("/");
+
+    std::string makeDirectory = "mkdir ";
+    makeDirectory.append(FileManager::writeDirectory);
+
+    system(makeDirectory.c_str());
+}
+
 void FileManager::readTicks(Stock& _stock, const std::string& _date) {
-    std::string name = Constants::parentDirectory + "/" + _date + "/" + _stock.getSymbol() + ".csv";
+    std::map<std::string, std::vector<Tick>>& datesTicksForStock = stockTicksForDate[_stock.getSymbol()];
+    std::vector<Tick>& ticksForDate = datesTicksForStock[_date];
+    if (ticksForDate.size()) {
+        for (unsigned int i = 0; i < ticksForDate.size(); i++) {
+            _stock.addTick(ticksForDate[i]);
+        }
+
+        return;
+    }
+    else {
+        std::cout << "NO TICKS FOR " << _stock.getSymbol() << " on " << _date << std::endl;
+    }
+
+    std::string name = Constants::readDirectory + "/" + _date + "/" + _stock.getSymbol() + ".csv";
     std::ifstream* symbolFile = new std::ifstream(name);
     if (!symbolFile->is_open())
     {
@@ -33,15 +74,54 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
     for (unsigned int i = 0; i < fileLength; i++) {
         if (quotes[i] == '\n') {
             std::string quote = quotes.substr(lastNewlineIndex + 1, i - lastNewlineIndex - 1);
-            Tick tick = Tick(_stock.getSymbol(), quote, Tick::FROM::CSV);
+            Tick tick = Tick(quote, _stock.getSymbol(), Tick::FROM::CSV);
             _stock.addTick(tick);
             lastNewlineIndex = i;
+
+            ticksForDate.push_back(tick);
         }
     }
 
     symbolFile->close();
 
     delete [] symbolFileData;
+}
+
+void FileManager::writeTicks(const std::vector<Tick>& _ticks) {
+    for (unsigned int i = 0; i < _ticks.size(); i++) {
+        FileManager::writeTick(_ticks[i]);
+    }
+}
+
+void FileManager::writeTick(const Tick& _tick) {
+    std::string symbol = _tick.getSymbol();
+    std::string csv = _tick.toCSV();
+    writeDataForSymbol(symbol, csv);
+}
+
+void FileManager::writeDataForSymbol(const std::string& _symbol, const std::string& _data) {
+    std::ofstream* symbolFile = FileManager::writeFiles[_symbol];
+    if (symbolFile != NULL) {
+        FileManager::writeDataToFile(_data, *symbolFile);
+    }
+    else {
+        std::string fileName = _symbol + ".csv";
+        symbolFile = new std::ofstream(FileManager::writeDirectory + fileName, std::ofstream::out | std::ofstream::app);
+        if (symbolFile->is_open()) {
+            FileManager::writeDataToFile(_data, *symbolFile);
+            FileManager::writeFiles[_symbol] = symbolFile;
+        }
+        else {
+            delete symbolFile;
+        }
+    }
+}
+
+void FileManager::writeDataToFile(const std::string& _data, std::ofstream& _file) {
+    uint64_t pos = _file.tellp();
+    _file.seekp(pos);
+    _file.write(_data.c_str(), _data.size());
+    _file.flush();
 }
 
 //const std::string FileManager::mainDirectory = "/Users/Matt/Desktop/symbol_data/";
@@ -106,30 +186,6 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
 //
 //bool FileManager::readQuoteAtStockIndex(const unsigned int& _index) {
 //    return readQuotes(_index);
-//}
-//
-//void FileManager::writeTickToFile(const Tick& _tick) {
-//    std::string symbol = _tick.getSymbol();
-//    std::string csv = _tick.toCSV();
-//    writeDataForSymbol(symbol, csv);
-//}
-//
-//void FileManager::writeDataForSymbol(const std::string& _symbol, const std::string& _data) {
-//    std::ofstream* symbolFile = symbolFiles[_symbol];
-//    if (symbolFile != NULL) {
-//        writeDataToFile(_data, *symbolFile);
-//    }
-//    else {
-//        std::string fileName = _symbol + ".csv";
-//        symbolFile = new std::ofstream(quotesDirectory + fileName, std::ofstream::out | std::ofstream::app);
-//        if (symbolFile->is_open()) {
-//            writeDataToFile(_data, *symbolFile);
-//            symbolFiles[_symbol] = symbolFile;
-//        }
-//        else {
-//            delete symbolFile;
-//        }
-//    }
 //}
 //
 //void FileManager::writeTimeSpanProfitsForSymbol(const std::string& _symbol, const std::string& _data) {

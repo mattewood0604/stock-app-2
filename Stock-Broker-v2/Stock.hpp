@@ -30,8 +30,9 @@ public:
 
     void clearData();
 
+    void mockRestCall(unsigned int& _marketTime);
+
     void addTick(const Tick& _tick);
-    void addTickToCandle(const Tick& _tick);
 
     void indicators();
     void order();
@@ -42,7 +43,6 @@ public:
     const std::string& getSymbol() const;
 
     const Candle& getLastCandle() const;
-    const Tick& getTick(const unsigned int& _time) const;
     const unsigned int getTotalTicks() const;
 
     const unsigned int& getTotalTrades() const;
@@ -59,7 +59,8 @@ private:
     
     ZigZag* zigZag;
     OnYourMark* onYourMark;
-    void enhancedInvestor();
+
+    void addTickToCandle(const Tick& _tick);
 
     std::string symbol;
     Tick currentTick;

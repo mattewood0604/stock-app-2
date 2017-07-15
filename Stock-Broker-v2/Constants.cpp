@@ -8,11 +8,15 @@
 
 #include "Constants.hpp"
 
-bool Constants::logTicks = false;
-bool Constants::logCandles = false;
-bool Constants::logBuySell = false;
-bool Constants::logProfits = true;
+const bool Constants::logTicks = false;
+const bool Constants::logCandles = false;
+const bool Constants::logBuySell = false;
+const bool Constants::logProfits = true;
+const bool Constants::logResponse = true;
 
-bool Constants::clearOrderAtDayEnd = false;
+const bool Constants::clearOrderAtDayEnd = false;
 
-std::string Constants::parentDirectory = "/Users/Matt/Desktop/symbol_data/";
+const std::string Constants::readDirectory = "/Users/Matt/Desktop/symbol_data/";
+const std::string Constants::writeDirectory = "/Users/Matt/Desktop/";
+
+const std::string Constants::stocksForQuotesAsCsv = "JNUG,JDST,NUGT,DUST";
