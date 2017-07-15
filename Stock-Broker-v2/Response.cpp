@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <cstring>
 
 #include "Constants.hpp"
 #include "Response.hpp"

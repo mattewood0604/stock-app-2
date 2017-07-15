@@ -88,7 +88,7 @@ void Maximizer::maximizeZigZag() {
 
             if (threadsUsed >= NUMBER_OF_THREADS) {
                 for (unsigned int i = 0; i < threadsUsed; i++) {
-                    ZigZagMaximize* maximizer = results[i].get();
+                    results[i].get(); // This might be needed to close the threads but I don't know
                 }
                 threadsUsed = 0;
             }
@@ -97,7 +97,7 @@ void Maximizer::maximizeZigZag() {
 
     if (threadsUsed >= NUMBER_OF_THREADS) {
         for (unsigned int i = 0; i < threadsUsed; i++) {
-            ZigZagMaximize* maximizer = results[i].get();
+            results[i].get();
         }
         threadsUsed = 0;
     }
