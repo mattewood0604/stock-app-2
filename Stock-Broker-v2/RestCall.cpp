@@ -6,6 +6,7 @@
 //  Copyright © 2017 MattWood. All rights reserved.
 //
 
+#include <algorithm>
 #include <iostream>
 #include <unistd.h>
 

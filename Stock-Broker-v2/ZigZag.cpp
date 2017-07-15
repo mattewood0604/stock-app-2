@@ -94,20 +94,6 @@ BuySell ZigZag::indicator(const Stock& _stock) {
         ll = 0;
     }
 
-    float topX = 0;
-    float topY = 0;
-    float botX = 0;
-    float botY = 0;
-    if (lh == 1) {
-        topY = high;
-        topX = _stock.candles.size();
-    }
-
-    if (ll == -1) {
-        botY = low;
-        botX = _stock.candles.size();
-    }
-
     if (lh > 0 && (this->lastPoint == -1 || this->lastPoint == 0)) {
         this->lastPoint = 1;
         buySell.isSell = true;

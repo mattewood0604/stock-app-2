@@ -6,10 +6,12 @@
 //  Copyright © 2017 MattWood. All rights reserved.
 //
 
+#include <algorithm>
+#include <iostream>
+#include <cstring>
+
 #include "Constants.hpp"
 #include "FileManager.hpp"
-
-#include <iostream>
 
 std::map<std::string, std::map<std::string, std::vector<Tick>>> FileManager::stockTicksForDate;
 std::map<std::string, std::ofstream*> FileManager::writeFiles;
@@ -26,6 +28,7 @@ void FileManager::initForWriting() {
     std::string month = (now->tm_mon + 1 < 10) ? std::to_string(now->tm_mon + 1).insert(0, "0") : std::to_string(now->tm_mon + 1);
     std::string day = (now->tm_mday < 10) ? std::to_string(now->tm_mday).insert(0, "0") : std::to_string(now->tm_mday);
 
+    FileManager::writeDirectory.append("/");
     FileManager::writeDirectory.append(month);
     FileManager::writeDirectory.append("_");
     FileManager::writeDirectory.append(day);
@@ -88,6 +91,7 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
 }
 
 void FileManager::writeTicks(const std::vector<Tick>& _ticks) {
+    std::cout << "Ticks Size: " << _ticks.size() << std::endl;
     for (unsigned int i = 0; i < _ticks.size(); i++) {
         FileManager::writeTick(_ticks[i]);
     }
@@ -96,6 +100,7 @@ void FileManager::writeTicks(const std::vector<Tick>& _ticks) {
 void FileManager::writeTick(const Tick& _tick) {
     std::string symbol = _tick.getSymbol();
     std::string csv = _tick.toCSV();
+    std::cout << "Write: " << symbol << std::endl << csv << std::endl;
     writeDataForSymbol(symbol, csv);
 }
 
@@ -106,8 +111,12 @@ void FileManager::writeDataForSymbol(const std::string& _symbol, const std::stri
     }
     else {
         std::string fileName = _symbol + ".csv";
-        symbolFile = new std::ofstream(FileManager::writeDirectory + fileName, std::ofstream::out | std::ofstream::app);
+        std::cout << "File Name: " << FileManager::writeDirectory + fileName << std::endl;
+        std::string filePath = FileManager::writeDirectory + fileName;
+        filePath.erase(std::remove(filePath.begin(), filePath.end(), '\\'), filePath.end());
+        symbolFile = new std::ofstream(filePath, std::ofstream::out | std::ofstream::app);
         if (symbolFile->is_open()) {
+            std::cout << "File is open" << std::endl;
             FileManager::writeDataToFile(_data, *symbolFile);
             FileManager::writeFiles[_symbol] = symbolFile;
         }

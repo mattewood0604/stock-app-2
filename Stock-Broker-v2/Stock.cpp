@@ -147,7 +147,7 @@ const std::string& Stock::getSymbol() const {
     return this->symbol;
 }
 
-const unsigned int Stock::getTotalTicks() const {
+unsigned int Stock::getTotalTicks() const {
     return (unsigned int)this->ticks.size();
 }
 
@@ -159,11 +159,11 @@ const unsigned int& Stock::getPositiveTrades() const {
     return this->positiveTrades;
 }
 
-const unsigned int Stock::getNegativeTrades() const {
+unsigned int Stock::getNegativeTrades() const {
     return this->totalTrades - this->positiveTrades;
 }
 
-const float Stock::getAveragePrice() const {
+float Stock::getAveragePrice() const {
     return this->candleSum / this->totalCandles;
 }
 

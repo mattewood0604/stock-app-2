@@ -14,7 +14,7 @@ ZigZagMaximize::ZigZagMaximize() {
     this->percentage = 0;
     this->candleOffset = 0;
     this->movingAverageLength = 0;
-};
+}
 
 void ZigZagMaximize::log() const {
     std::cout << "-=-=-=-=-=-=-=-=-=-=-=-=-" << std::endl;

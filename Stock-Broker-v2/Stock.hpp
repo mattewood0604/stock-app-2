@@ -43,13 +43,13 @@ public:
     const std::string& getSymbol() const;
 
     const Candle& getLastCandle() const;
-    const unsigned int getTotalTicks() const;
+    unsigned int getTotalTicks() const;
 
     const unsigned int& getTotalTrades() const;
     const unsigned int& getPositiveTrades() const;
-    const unsigned int getNegativeTrades() const;
+    unsigned int getNegativeTrades() const;
     const float& getTotalProfits() const;
-    const float getAveragePrice() const;
+    float getAveragePrice() const;
 
 private:
     friend class OnYourMark;

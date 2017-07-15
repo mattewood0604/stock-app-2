@@ -47,20 +47,23 @@ void runProfits(Stock& _stock) {
     std::cout << std::endl;
 }
 
-int main(int argc, const char * argv[]) {
+// int argc, const char * argv[]
+int main() {
     Stock jnug("JNUG", 0.01, ZigZag(72, 34), OnYourMark(0, 0, 0, 0));
     Stock jdst("JDST", 0.01, ZigZag(26, 47), OnYourMark(0, 0, 0, 0));
     Stock dust("DUST", 0.01, ZigZag(21, 51), OnYourMark(0, 0, 0, 0));
 
+    FileManager::initForWriting();
+
     RestCall restCall;
-//    restCall.quotes();
-//    restCall.instruments();
+    restCall.quotes();
+    // restCall.instruments();
 
-//    Maximizer maximizer("JNUG");
-//    maximizer.maximizeZigZag();
-//    maximizer.maximizeOnYourMark();
+    // Maximizer maximizer("JNUG");
+    // maximizer.maximizeZigZag();
+    // maximizer.maximizeOnYourMark();
 
-//    runProfits(jnug);
+    //runProfits(jdst);
 
     return 0;
 }

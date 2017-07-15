@@ -16,7 +16,7 @@ const bool Constants::logResponse = true;
 
 const bool Constants::clearOrderAtDayEnd = false;
 
-const std::string Constants::readDirectory = "/Users/Matt/Desktop/symbol_data/";
-const std::string Constants::writeDirectory = "/Users/Matt/Desktop/";
+const std::string Constants::readDirectory = "/media/matt/Seagate Expansion Drive";
+const std::string Constants::writeDirectory = "/media/matt/Seagate\\ Expansion\\ Drive";
 
 const std::string Constants::stocksForQuotesAsCsv = "JNUG,JDST,NUGT,DUST";
