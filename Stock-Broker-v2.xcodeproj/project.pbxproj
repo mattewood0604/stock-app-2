@@ -7,7 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C94F036F1F1849BD001EC9A1 /* Maximizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F036D1F1849BD001EC9A1 /* Maximizer.cpp */; };
+		C94F03721F184A6E001EC9A1 /* ZigZagMaximizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F03701F184A6E001EC9A1 /* ZigZagMaximizer.cpp */; };
+		C94F03761F19608C001EC9A1 /* RestCall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F03741F19608C001EC9A1 /* RestCall.cpp */; };
+		C94F037A1F19647C001EC9A1 /* Response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F03781F19647C001EC9A1 /* Response.cpp */; };
+		C94F037F1F196DB8001EC9A1 /* libcurl.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C94F037C1F196DB8001EC9A1 /* libcurl.3.tbd */; };
+		C94F03801F196DB8001EC9A1 /* libcurl.4.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C94F037D1F196DB8001EC9A1 /* libcurl.4.tbd */; };
+		C94F03811F196DB8001EC9A1 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C94F037E1F196DB8001EC9A1 /* libcurl.tbd */; };
 		C9E2BD8B1F0940570036AD4E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD8A1F0940570036AD4E /* main.cpp */; };
+		C9E2BD931F0943DB0036AD4E /* Tick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD911F0943DB0036AD4E /* Tick.cpp */; };
+		C9E2BD961F0944FE0036AD4E /* FileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD941F0944FE0036AD4E /* FileManager.cpp */; };
+		C9E2BD991F0946E80036AD4E /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD971F0946E70036AD4E /* Constants.cpp */; };
+		C9E2BDA01F094D430036AD4E /* Stock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD9E1F094D430036AD4E /* Stock.cpp */; };
+		C9E2BDA51F0979CC0036AD4E /* Candle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BDA31F0979CC0036AD4E /* Candle.cpp */; };
+		C9E2BDA91F09961F0036AD4E /* Dates.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BDA71F09961F0036AD4E /* Dates.cpp */; };
+		C9E2BDB71F0C0E380036AD4E /* ZigZag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BDB51F0C0E380036AD4E /* ZigZag.cpp */; };
+		C9E2BDBA1F0C0EA50036AD4E /* BuySell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BDB81F0C0EA50036AD4E /* BuySell.cpp */; };
+		C9E2BDBD1F0C122E0036AD4E /* Order.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BDBB1F0C122E0036AD4E /* Order.cpp */; };
+		C9E2BDC31F0C13DF0036AD4E /* Profits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BDC11F0C13DF0036AD4E /* Profits.cpp */; };
+		C9E2BDC71F0C41F60036AD4E /* OnYourMark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BDC51F0C41F60036AD4E /* OnYourMark.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +41,42 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C94F036D1F1849BD001EC9A1 /* Maximizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Maximizer.cpp; sourceTree = "<group>"; };
+		C94F036E1F1849BD001EC9A1 /* Maximizer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Maximizer.hpp; sourceTree = "<group>"; };
+		C94F03701F184A6E001EC9A1 /* ZigZagMaximizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZigZagMaximizer.cpp; sourceTree = "<group>"; };
+		C94F03711F184A6E001EC9A1 /* ZigZagMaximizer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ZigZagMaximizer.hpp; sourceTree = "<group>"; };
+		C94F03741F19608C001EC9A1 /* RestCall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RestCall.cpp; sourceTree = "<group>"; };
+		C94F03751F19608C001EC9A1 /* RestCall.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RestCall.hpp; sourceTree = "<group>"; };
+		C94F03781F19647C001EC9A1 /* Response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Response.cpp; sourceTree = "<group>"; };
+		C94F03791F19647C001EC9A1 /* Response.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Response.hpp; sourceTree = "<group>"; };
+		C94F037C1F196DB8001EC9A1 /* libcurl.3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.3.tbd; path = usr/lib/libcurl.3.tbd; sourceTree = SDKROOT; };
+		C94F037D1F196DB8001EC9A1 /* libcurl.4.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.4.tbd; path = usr/lib/libcurl.4.tbd; sourceTree = SDKROOT; };
+		C94F037E1F196DB8001EC9A1 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
+		C94F03831F1A9C11001EC9A1 /* StocksForData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StocksForData.txt; sourceTree = "<group>"; };
 		C9E2BD871F0940570036AD4E /* Stock-Broker-v2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Stock-Broker-v2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E2BD8A1F0940570036AD4E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		C9E2BD911F0943DB0036AD4E /* Tick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tick.cpp; sourceTree = "<group>"; };
+		C9E2BD921F0943DB0036AD4E /* Tick.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Tick.hpp; sourceTree = "<group>"; };
+		C9E2BD941F0944FE0036AD4E /* FileManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileManager.cpp; sourceTree = "<group>"; };
+		C9E2BD951F0944FE0036AD4E /* FileManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileManager.hpp; sourceTree = "<group>"; };
+		C9E2BD971F0946E70036AD4E /* Constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Constants.cpp; sourceTree = "<group>"; };
+		C9E2BD981F0946E70036AD4E /* Constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Constants.hpp; sourceTree = "<group>"; };
+		C9E2BD9E1F094D430036AD4E /* Stock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Stock.cpp; sourceTree = "<group>"; };
+		C9E2BD9F1F094D430036AD4E /* Stock.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Stock.hpp; sourceTree = "<group>"; };
+		C9E2BDA31F0979CC0036AD4E /* Candle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Candle.cpp; sourceTree = "<group>"; };
+		C9E2BDA41F0979CC0036AD4E /* Candle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Candle.hpp; sourceTree = "<group>"; };
+		C9E2BDA71F09961F0036AD4E /* Dates.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dates.cpp; sourceTree = "<group>"; };
+		C9E2BDA81F09961F0036AD4E /* Dates.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Dates.hpp; sourceTree = "<group>"; };
+		C9E2BDB51F0C0E380036AD4E /* ZigZag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZigZag.cpp; sourceTree = "<group>"; };
+		C9E2BDB61F0C0E380036AD4E /* ZigZag.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ZigZag.hpp; sourceTree = "<group>"; };
+		C9E2BDB81F0C0EA50036AD4E /* BuySell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BuySell.cpp; sourceTree = "<group>"; };
+		C9E2BDB91F0C0EA50036AD4E /* BuySell.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BuySell.hpp; sourceTree = "<group>"; };
+		C9E2BDBB1F0C122E0036AD4E /* Order.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Order.cpp; sourceTree = "<group>"; };
+		C9E2BDBC1F0C122E0036AD4E /* Order.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Order.hpp; sourceTree = "<group>"; };
+		C9E2BDC11F0C13DF0036AD4E /* Profits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Profits.cpp; sourceTree = "<group>"; };
+		C9E2BDC21F0C13DF0036AD4E /* Profits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Profits.hpp; sourceTree = "<group>"; };
+		C9E2BDC51F0C41F60036AD4E /* OnYourMark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OnYourMark.cpp; sourceTree = "<group>"; };
+		C9E2BDC61F0C41F60036AD4E /* OnYourMark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OnYourMark.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,17 +84,60 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C94F037F1F196DB8001EC9A1 /* libcurl.3.tbd in Frameworks */,
+				C94F03801F196DB8001EC9A1 /* libcurl.4.tbd in Frameworks */,
+				C94F03811F196DB8001EC9A1 /* libcurl.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C94F036C1F1849A9001EC9A1 /* Maximizer */ = {
+			isa = PBXGroup;
+			children = (
+				C94F036D1F1849BD001EC9A1 /* Maximizer.cpp */,
+				C94F036E1F1849BD001EC9A1 /* Maximizer.hpp */,
+				C94F03701F184A6E001EC9A1 /* ZigZagMaximizer.cpp */,
+				C94F03711F184A6E001EC9A1 /* ZigZagMaximizer.hpp */,
+			);
+			name = Maximizer;
+			sourceTree = "<group>";
+		};
+		C94F03731F196078001EC9A1 /* RestCall */ = {
+			isa = PBXGroup;
+			children = (
+				C94F03741F19608C001EC9A1 /* RestCall.cpp */,
+				C94F03751F19608C001EC9A1 /* RestCall.hpp */,
+			);
+			name = RestCall;
+			sourceTree = "<group>";
+		};
+		C94F03771F19645E001EC9A1 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				C94F03781F19647C001EC9A1 /* Response.cpp */,
+				C94F03791F19647C001EC9A1 /* Response.hpp */,
+			);
+			name = Response;
+			sourceTree = "<group>";
+		};
+		C94F037B1F196DB8001EC9A1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C94F037C1F196DB8001EC9A1 /* libcurl.3.tbd */,
+				C94F037D1F196DB8001EC9A1 /* libcurl.4.tbd */,
+				C94F037E1F196DB8001EC9A1 /* libcurl.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C9E2BD7E1F0940570036AD4E = {
 			isa = PBXGroup;
 			children = (
 				C9E2BD891F0940570036AD4E /* Stock-Broker-v2 */,
 				C9E2BD881F0940570036AD4E /* Products */,
+				C94F037B1F196DB8001EC9A1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +152,123 @@
 		C9E2BD891F0940570036AD4E /* Stock-Broker-v2 */ = {
 			isa = PBXGroup;
 			children = (
+				C94F03771F19645E001EC9A1 /* Response */,
+				C94F03731F196078001EC9A1 /* RestCall */,
+				C94F036C1F1849A9001EC9A1 /* Maximizer */,
+				C9E2BDBF1F0C13680036AD4E /* BuySell */,
+				C9E2BDA21F0979B40036AD4E /* Candle */,
+				C9E2BD9C1F0947BC0036AD4E /* Constants */,
+				C9E2BDA61F09960E0036AD4E /* Dates */,
+				C9E2BD9B1F0947B00036AD4E /* FileManager */,
+				C9E2BDC81F0C58220036AD4E /* OnYourMark */,
+				C9E2BDC01F0C13710036AD4E /* Order */,
+				C9E2BDC41F0C41BA0036AD4E /* Profits */,
+				C9E2BD9D1F094D390036AD4E /* Stock */,
+				C9E2BD9A1F0947A80036AD4E /* Tick */,
+				C9E2BDBE1F0C135B0036AD4E /* ZigZag */,
 				C9E2BD8A1F0940570036AD4E /* main.cpp */,
+				C94F03831F1A9C11001EC9A1 /* StocksForData.txt */,
 			);
 			path = "Stock-Broker-v2";
+			sourceTree = "<group>";
+		};
+		C9E2BD9A1F0947A80036AD4E /* Tick */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BD911F0943DB0036AD4E /* Tick.cpp */,
+				C9E2BD921F0943DB0036AD4E /* Tick.hpp */,
+			);
+			name = Tick;
+			sourceTree = "<group>";
+		};
+		C9E2BD9B1F0947B00036AD4E /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BD941F0944FE0036AD4E /* FileManager.cpp */,
+				C9E2BD951F0944FE0036AD4E /* FileManager.hpp */,
+			);
+			name = FileManager;
+			sourceTree = "<group>";
+		};
+		C9E2BD9C1F0947BC0036AD4E /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BD971F0946E70036AD4E /* Constants.cpp */,
+				C9E2BD981F0946E70036AD4E /* Constants.hpp */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		C9E2BD9D1F094D390036AD4E /* Stock */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BD9E1F094D430036AD4E /* Stock.cpp */,
+				C9E2BD9F1F094D430036AD4E /* Stock.hpp */,
+			);
+			name = Stock;
+			sourceTree = "<group>";
+		};
+		C9E2BDA21F0979B40036AD4E /* Candle */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BDA31F0979CC0036AD4E /* Candle.cpp */,
+				C9E2BDA41F0979CC0036AD4E /* Candle.hpp */,
+			);
+			name = Candle;
+			sourceTree = "<group>";
+		};
+		C9E2BDA61F09960E0036AD4E /* Dates */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BDA71F09961F0036AD4E /* Dates.cpp */,
+				C9E2BDA81F09961F0036AD4E /* Dates.hpp */,
+			);
+			name = Dates;
+			sourceTree = "<group>";
+		};
+		C9E2BDBE1F0C135B0036AD4E /* ZigZag */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BDB51F0C0E380036AD4E /* ZigZag.cpp */,
+				C9E2BDB61F0C0E380036AD4E /* ZigZag.hpp */,
+			);
+			name = ZigZag;
+			sourceTree = "<group>";
+		};
+		C9E2BDBF1F0C13680036AD4E /* BuySell */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BDB81F0C0EA50036AD4E /* BuySell.cpp */,
+				C9E2BDB91F0C0EA50036AD4E /* BuySell.hpp */,
+			);
+			name = BuySell;
+			sourceTree = "<group>";
+		};
+		C9E2BDC01F0C13710036AD4E /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BDBB1F0C122E0036AD4E /* Order.cpp */,
+				C9E2BDBC1F0C122E0036AD4E /* Order.hpp */,
+			);
+			name = Order;
+			sourceTree = "<group>";
+		};
+		C9E2BDC41F0C41BA0036AD4E /* Profits */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BDC11F0C13DF0036AD4E /* Profits.cpp */,
+				C9E2BDC21F0C13DF0036AD4E /* Profits.hpp */,
+			);
+			name = Profits;
+			sourceTree = "<group>";
+		};
+		C9E2BDC81F0C58220036AD4E /* OnYourMark */ = {
+			isa = PBXGroup;
+			children = (
+				C9E2BDC51F0C41F60036AD4E /* OnYourMark.cpp */,
+				C9E2BDC61F0C41F60036AD4E /* OnYourMark.hpp */,
+			);
+			name = OnYourMark;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,7 +329,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C94F03721F184A6E001EC9A1 /* ZigZagMaximizer.cpp in Sources */,
+				C9E2BDA51F0979CC0036AD4E /* Candle.cpp in Sources */,
+				C9E2BDBA1F0C0EA50036AD4E /* BuySell.cpp in Sources */,
+				C94F03761F19608C001EC9A1 /* RestCall.cpp in Sources */,
+				C9E2BDC71F0C41F60036AD4E /* OnYourMark.cpp in Sources */,
+				C9E2BDA01F094D430036AD4E /* Stock.cpp in Sources */,
+				C9E2BDC31F0C13DF0036AD4E /* Profits.cpp in Sources */,
+				C9E2BD961F0944FE0036AD4E /* FileManager.cpp in Sources */,
+				C9E2BDBD1F0C122E0036AD4E /* Order.cpp in Sources */,
+				C9E2BDA91F09961F0036AD4E /* Dates.cpp in Sources */,
+				C9E2BD931F0943DB0036AD4E /* Tick.cpp in Sources */,
 				C9E2BD8B1F0940570036AD4E /* main.cpp in Sources */,
+				C94F037A1F19647C001EC9A1 /* Response.cpp in Sources */,
+				C9E2BD991F0946E80036AD4E /* Constants.cpp in Sources */,
+				C9E2BDB71F0C0E380036AD4E /* ZigZag.cpp in Sources */,
+				C94F036F1F1849BD001EC9A1 /* Maximizer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +475,7 @@
 				C9E2BD901F0940570036AD4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
