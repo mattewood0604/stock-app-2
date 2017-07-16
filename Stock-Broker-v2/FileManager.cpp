@@ -152,5 +152,5 @@ void FileManager::writeDataToFile(const std::string& _data, std::ofstream& _file
 }
 
 void FileManager::readStockSymbols() {
-    
+
 }

@@ -12,7 +12,7 @@ const bool Constants::logTicks = false;
 const bool Constants::logCandles = false;
 const bool Constants::logBuySell = false;
 const bool Constants::logProfits = true;
-const bool Constants::logResponse = true;
+const bool Constants::logResponse = false;
 
 const bool Constants::clearOrderAtDayEnd = false;
 
