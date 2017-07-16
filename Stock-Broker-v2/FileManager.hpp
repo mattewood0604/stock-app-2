@@ -27,6 +27,8 @@ public:
 //
     static void readTicks(Stock& _stock, const std::string& _date);
     static void writeTicks(const std::vector<Tick>& _ticks);
+
+    static void readStockSymbols();
 //    static bool readQuoteAtStockIndex(const unsigned int& _index);
 //
 //    static void writeTickToFile(const Tick& _tick);

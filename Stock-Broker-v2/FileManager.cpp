@@ -150,3 +150,7 @@ void FileManager::writeDataToFile(const std::string& _data, std::ofstream& _file
     _file.write(_data.c_str(), _data.size());
     _file.flush();
 }
+
+void FileManager::readStockSymbols() {
+    
+}

@@ -14,6 +14,8 @@
 		C94F037F1F196DB8001EC9A1 /* libcurl.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C94F037C1F196DB8001EC9A1 /* libcurl.3.tbd */; };
 		C94F03801F196DB8001EC9A1 /* libcurl.4.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C94F037D1F196DB8001EC9A1 /* libcurl.4.tbd */; };
 		C94F03811F196DB8001EC9A1 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C94F037E1F196DB8001EC9A1 /* libcurl.tbd */; };
+		C94F03871F1BCDFC001EC9A1 /* Market.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F03851F1BCDFC001EC9A1 /* Market.cpp */; };
+		C94F038C1F1BFBAE001EC9A1 /* MarketInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F038A1F1BFBAE001EC9A1 /* MarketInfo.cpp */; };
 		C9E2BD8B1F0940570036AD4E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD8A1F0940570036AD4E /* main.cpp */; };
 		C9E2BD931F0943DB0036AD4E /* Tick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD911F0943DB0036AD4E /* Tick.cpp */; };
 		C9E2BD961F0944FE0036AD4E /* FileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD941F0944FE0036AD4E /* FileManager.cpp */; };
@@ -53,6 +55,10 @@
 		C94F037D1F196DB8001EC9A1 /* libcurl.4.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.4.tbd; path = usr/lib/libcurl.4.tbd; sourceTree = SDKROOT; };
 		C94F037E1F196DB8001EC9A1 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
 		C94F03831F1A9C11001EC9A1 /* StocksForData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StocksForData.txt; sourceTree = "<group>"; };
+		C94F03851F1BCDFC001EC9A1 /* Market.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Market.cpp; sourceTree = "<group>"; };
+		C94F03861F1BCDFC001EC9A1 /* Market.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Market.hpp; sourceTree = "<group>"; };
+		C94F038A1F1BFBAE001EC9A1 /* MarketInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MarketInfo.cpp; sourceTree = "<group>"; };
+		C94F038B1F1BFBAE001EC9A1 /* MarketInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MarketInfo.hpp; sourceTree = "<group>"; };
 		C9E2BD871F0940570036AD4E /* Stock-Broker-v2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Stock-Broker-v2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E2BD8A1F0940570036AD4E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C9E2BD911F0943DB0036AD4E /* Tick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tick.cpp; sourceTree = "<group>"; };
@@ -132,6 +138,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C94F03841F1BCDEA001EC9A1 /* Market */ = {
+			isa = PBXGroup;
+			children = (
+				C94F03851F1BCDFC001EC9A1 /* Market.cpp */,
+				C94F03861F1BCDFC001EC9A1 /* Market.hpp */,
+			);
+			name = Market;
+			sourceTree = "<group>";
+		};
+		C94F03881F1BFB99001EC9A1 /* MarketInfo */ = {
+			isa = PBXGroup;
+			children = (
+				C94F038A1F1BFBAE001EC9A1 /* MarketInfo.cpp */,
+				C94F038B1F1BFBAE001EC9A1 /* MarketInfo.hpp */,
+			);
+			name = MarketInfo;
+			sourceTree = "<group>";
+		};
 		C9E2BD7E1F0940570036AD4E = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +176,8 @@
 		C9E2BD891F0940570036AD4E /* Stock-Broker-v2 */ = {
 			isa = PBXGroup;
 			children = (
+				C94F03881F1BFB99001EC9A1 /* MarketInfo */,
+				C94F03841F1BCDEA001EC9A1 /* Market */,
 				C94F03771F19645E001EC9A1 /* Response */,
 				C94F03731F196078001EC9A1 /* RestCall */,
 				C94F036C1F1849A9001EC9A1 /* Maximizer */,
@@ -332,6 +358,7 @@
 				C94F03721F184A6E001EC9A1 /* ZigZagMaximizer.cpp in Sources */,
 				C9E2BDA51F0979CC0036AD4E /* Candle.cpp in Sources */,
 				C9E2BDBA1F0C0EA50036AD4E /* BuySell.cpp in Sources */,
+				C94F03871F1BCDFC001EC9A1 /* Market.cpp in Sources */,
 				C94F03761F19608C001EC9A1 /* RestCall.cpp in Sources */,
 				C9E2BDC71F0C41F60036AD4E /* OnYourMark.cpp in Sources */,
 				C9E2BDA01F094D430036AD4E /* Stock.cpp in Sources */,
@@ -345,6 +372,7 @@
 				C9E2BD991F0946E80036AD4E /* Constants.cpp in Sources */,
 				C9E2BDB71F0C0E380036AD4E /* ZigZag.cpp in Sources */,
 				C94F036F1F1849BD001EC9A1 /* Maximizer.cpp in Sources */,
+				C94F038C1F1BFBAE001EC9A1 /* MarketInfo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
