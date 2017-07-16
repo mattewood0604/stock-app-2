@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include "MarketInfo.hpp"
 #include "Tick.hpp"
 
 class Response {
@@ -29,6 +30,8 @@ public:
     std::string nextUrlForInstruments() const;
     std::vector<std::string> symbolsFromInstruments() const;
     unsigned int parseAverageVolume() const;
+
+    MarketInfo parseMarketInfo() const;
 
 private:
     char* memory;

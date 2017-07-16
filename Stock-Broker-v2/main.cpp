@@ -8,10 +8,10 @@
 
 #include "Dates.hpp"
 #include "FileManager.hpp"
+#include "Market.hpp"
 #include "Maximizer.hpp"
 #include "RestCall.hpp"
 #include "Stock.hpp"
-#include "ZigZag.hpp"
 
 #include <iostream>
 #include <future>
@@ -19,12 +19,12 @@
 void runProfits(Stock& _stock) {
     Dates dates;
 
-    for (unsigned int i = 0; i < dates.dates.size(); i++) {
+    for (unsigned int i = 0; i < dates.numberOfDates(); i++) {
         _stock.clearData();
 
-        std::cout << dates.dates[i] << std::endl;
+        std::cout << dates.getDate(i) << std::endl;
         std::cout << "------------" << std::endl;
-        FileManager::readTicks(_stock, dates.dates[i]);
+        FileManager::readTicks(_stock, dates.getDate(i));
 
         for (unsigned int j = 0; j < _stock.getTotalTicks(); j++) {
             _stock.mockRestCall(j);
@@ -36,15 +36,47 @@ void runProfits(Stock& _stock) {
 
     std::cout << std::endl;
     std::cout << "-+-+-+-+-+-+-+-+-+" << std::endl;
-    std::cout << "Days: " << dates.dates.size() << std::endl;
+    std::cout << "Days: " << dates.numberOfDates() << std::endl;
     std::cout << "Profits: " << _stock.getTotalProfits() << std::endl;
     std::cout << "Average Price: " << _stock.getAveragePrice() << std::endl;
     std::cout << "Total Trades: " << _stock.getTotalTrades() << std::endl;
     std::cout << "Positive Trades: " << _stock.getPositiveTrades() << std::endl;
     std::cout << "Negative Trades: " << _stock.getNegativeTrades() << std::endl;
-    std::cout << "Trades / Day: " << (float)_stock.getTotalTrades() / dates.dates.size() << std::endl;
+    std::cout << "Trades / Day: " << (float)_stock.getTotalTrades() / dates.numberOfDates() << std::endl;
     std::cout << "-+-+-+-+-+-+-+-+-+" << std::endl;
     std::cout << std::endl;
+}
+
+void runStocks() {
+    Market market;
+    RestCall restCall;
+
+    std::cout << "~-~-~Application Start Up~-~-~" << std::endl;
+
+    market.waitForNextOpening();
+
+    while(true) {
+        FileManager::initForWriting();
+        std::vector<Tick> ticks;
+
+        bool justOpened = true;
+        while (market.isOpen()) {
+            if (justOpened) {
+                std::cout << "Opened: ";
+                Dates::outputCurrentTime();
+                justOpened = false;
+            }
+
+            ticks = restCall.quotes();
+            FileManager::writeTicks(ticks);
+            // Add ticks to the stocks we want to buy or sell
+            restCall.waitForNextCall();
+        }
+        std::cout << "Closed: ";
+        Dates::outputCurrentTime();
+
+        market.waitForNextOpening();
+    }
 }
 
 // int argc, const char * argv[]
@@ -53,17 +85,18 @@ int main() {
     Stock jdst("JDST", 0.01, ZigZag(26, 47), OnYourMark(0, 0, 0, 0));
     Stock dust("DUST", 0.01, ZigZag(21, 51), OnYourMark(0, 0, 0, 0));
 
-    FileManager::initForWriting();
+    runStocks();
+    //FileManager::initForWriting();
 
-    RestCall restCall;
-    restCall.quotes();
+    // RestCall restCall;
+    // restCall.quotes();
     // restCall.instruments();
 
     // Maximizer maximizer("JNUG");
     // maximizer.maximizeZigZag();
     // maximizer.maximizeOnYourMark();
 
-    //runProfits(jdst);
+//     runProfits(jdst);
 
     return 0;
 }

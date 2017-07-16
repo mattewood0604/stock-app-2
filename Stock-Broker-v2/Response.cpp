@@ -178,3 +178,29 @@ unsigned int Response::parseAverageVolume() const {
     std::string averageVolumeString = jsonString.substr(averageVolumeIndex + averageVolume.size(), commaIndex - (averageVolumeIndex + averageVolume.size()));
     return atoi(averageVolumeString.c_str());
 }
+
+MarketInfo Response::parseMarketInfo() const {
+    const std::string isOpen = "\"is_open\":";
+    const std::string nextOpen = "\"next_open_hours\":";
+
+    MarketInfo marketInfo;
+    std::string jsonString = std::string(this->memory);
+
+    int isOpenIndex = (int)jsonString.find(isOpen);
+    int commaIndex = (int)jsonString.find(",", isOpenIndex);
+
+    std::string isOpenBool = jsonString.substr(isOpenIndex + isOpen.size(), commaIndex - (isOpenIndex + isOpen.size()));
+    marketInfo.opensToday = isOpenBool.size() == 4;
+
+    int nextOpenIndex = (int)jsonString.find(nextOpen);
+    commaIndex = (int)jsonString.find(",", nextOpenIndex);
+
+    std::string nextOpenDayURL = jsonString.substr(nextOpenIndex + nextOpen.size(), commaIndex - (nextOpenIndex + nextOpen.size()));
+    int nextDayStart = (int)nextOpenDayURL.find("/2") + 1; // URL date starts with year
+    int nextDayEnd = (int)nextOpenDayURL.find("\\/", nextDayStart);
+    
+    std::string nextOpenDay = nextOpenDayURL.substr(nextDayStart, nextDayEnd - nextDayStart);
+    marketInfo.nextOpenDay = nextOpenDay;
+
+    return marketInfo;
+}

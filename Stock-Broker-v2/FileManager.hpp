@@ -22,6 +22,8 @@ public:
 //    static const std::string mainDirectory;
 //
     static void initForWriting();
+
+    static std::vector<std::string> getDatesWithData();
 //
     static void readTicks(Stock& _stock, const std::string& _date);
     static void writeTicks(const std::vector<Tick>& _ticks);

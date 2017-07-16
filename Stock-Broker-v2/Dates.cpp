@@ -6,125 +6,78 @@
 //  Copyright © 2017 MattWood. All rights reserved.
 //
 
+#include <algorithm>
+#include <iostream>
+#include <iomanip>
+
 #include "Dates.hpp"
+#include "FileManager.hpp"
 
 Dates::Dates() {
-    this->dates = std::vector<std::string>();
-    dates.push_back("10_7_2016");
-    dates.push_back("10_10_2016");
-    dates.push_back("10_11_2016");
-    dates.push_back("10_12_2016");
-    dates.push_back("10_13_2016");
-    dates.push_back("10_20_2016");
-    dates.push_back("10_21_2016");
-    dates.push_back("10_25_2016");
-    dates.push_back("10_26_2016");
-    dates.push_back("10_27_2016");
-    dates.push_back("10_28_2016");
-    dates.push_back("10_31_2016");
-    dates.push_back("11_01_2016");
-    dates.push_back("11_02_2016");
-    dates.push_back("11_03_2016");
-    dates.push_back("11_04_2016");
-    dates.push_back("11_07_2016");
-    dates.push_back("11_09_2016");
-    dates.push_back("11_10_2016");
-    dates.push_back("11_11_2016");
-    dates.push_back("11_21_2016");
-    dates.push_back("12_15_2016");
-    dates.push_back("12_16_2016");
-    dates.push_back("12_19_2016");
-    dates.push_back("12_20_2016");
-    dates.push_back("12_21_2016");
-    dates.push_back("12_22_2016");
-    dates.push_back("12_23_2016");
-    dates.push_back("12_27_2016");
-    dates.push_back("12_30_2016");
-    dates.push_back("01_09_2017");
-    dates.push_back("01_10_2017");
-    dates.push_back("01_11_2017");
-    dates.push_back("01_13_2017");
-    dates.push_back("01_17_2017");
-    dates.push_back("01_18_2017");
-    dates.push_back("01_19_2017");
-    dates.push_back("01_20_2017");
-    dates.push_back("01_23_2017");
-    dates.push_back("01_24_2017");
-    dates.push_back("01_25_2017");
-    dates.push_back("01_26_2017");
-    dates.push_back("01_27_2017");
-    dates.push_back("01_30_2017");
-    dates.push_back("01_31_2017");
-    dates.push_back("02_01_2017");
-    dates.push_back("02_03_2017");
-    dates.push_back("02_07_2017");
-    dates.push_back("02_08_2017");
-    dates.push_back("02_09_2017");
-    dates.push_back("02_10_2017");
-    dates.push_back("02_13_2017");
-    dates.push_back("02_14_2017");
-    dates.push_back("02_15_2017");
-    dates.push_back("02_16_2017");
-    dates.push_back("02_17_2017");
-    dates.push_back("02_21_2017");
-    dates.push_back("02_22_2017");
-    dates.push_back("02_23_2017");
-    dates.push_back("02_24_2017");
-    dates.push_back("02_27_2017");
-    dates.push_back("02_28_2017");
-    dates.push_back("03_01_2017");
-    dates.push_back("03_02_2017");
-    dates.push_back("03_03_2017");
-    dates.push_back("03_06_2017");
-    dates.push_back("03_07_2017");
-    dates.push_back("03_08_2017");
-    dates.push_back("03_09_2017");
-    dates.push_back("03_10_2017");
-    dates.push_back("03_14_2017");
-    dates.push_back("03_15_2017");
-    dates.push_back("03_16_2017");
-    dates.push_back("03_17_2017");
-    dates.push_back("03_20_2017");
-    dates.push_back("03_21_2017");
-    dates.push_back("03_22_2017");
-    dates.push_back("03_23_2017");
-    dates.push_back("03_24_2017");
-    dates.push_back("03_27_2017");
-    dates.push_back("03_28_2017");
-    dates.push_back("03_29_2017");
-    dates.push_back("03_30_2017");
-    dates.push_back("03_31_2017");
-    dates.push_back("04_04_2017");
-    dates.push_back("04_05_2017");
-    dates.push_back("04_06_2017");
-    dates.push_back("04_07_2017");
-    dates.push_back("04_10_2017");
-    dates.push_back("04_11_2017");
-    dates.push_back("04_12_2017");
-    dates.push_back("04_13_2017");
-    dates.push_back("04_14_2017");
-    dates.push_back("04_17_2017");
-    dates.push_back("04_18_2017");
-    dates.push_back("04_19_2017");
-    dates.push_back("04_20_2017");
-    dates.push_back("04_21_2017");
-    dates.push_back("04_24_2017");
-    dates.push_back("05_01_2017");
-    dates.push_back("05_02_2017");
-    dates.push_back("05_03_2017");
-    dates.push_back("05_04_2017");
-    dates.push_back("05_05_2017");
-    dates.push_back("05_08_2017");
-    dates.push_back("05_09_2017");
-    dates.push_back("05_10_2017");
-    dates.push_back("05_11_2017");
-    dates.push_back("05_17_2017");
-    dates.push_back("05_18_2017");
-    dates.push_back("05_19_2017");
-    dates.push_back("05_22_2017");
-    dates.push_back("05_23_2017");
-    dates.push_back("05_24_2017");
-    dates.push_back("05_25_2017");
-    dates.push_back("05_26_2017");
-    dates.push_back("05_31_2017");
+    std::vector<std::string> dates = FileManager::getDatesWithData();
+
+    std::sort(dates.begin(), dates.end(), sortDates);
+
+    this->dates = dates;
+}
+
+unsigned int Dates::numberOfDates() const {
+    return (unsigned int)this->dates.size();
+}
+
+const std::string& Dates::getDate(const unsigned int& _index) const {
+    return this->dates[_index];
+}
+
+bool Dates::sortDates(std::string _date1, std::string _date2) {
+    time_t time1 = Dates::createTime(_date1);
+    time_t time2 = Dates::createTime(_date2);
+    return time2 > time1;
+}
+
+time_t Dates::createTime(std::string _date) {
+    int day = Dates::getDay(_date);
+    int month = Dates::getMonth(_date);
+    int year = Dates::getYear(_date);
+
+    time_t rawtime;
+    time(&rawtime);
+
+    struct tm tm;
+    tm = *localtime(&rawtime);
+    tm.tm_year = year - 1900;
+    tm.tm_mon = month - 1;
+    tm.tm_mday = day;
+    return mktime(&tm);
+}
+
+int Dates::getDay(std::string _date) {
+    int firstUnderscore = (int)_date.find('_') + 1;
+    int secondUnderscore = (int)_date.find('_', firstUnderscore + 1);
+    int length = secondUnderscore - firstUnderscore;
+    return atoi(_date.substr(firstUnderscore, length).c_str());
+}
+
+int Dates::getMonth(std::string _date) {
+    int firstUnderscore = (int)_date.find('_') + 1;
+    int length = firstUnderscore;
+    return atoi(_date.substr(0, length).c_str());
+}
+
+int Dates::getYear(std::string _date) {
+    int firstUnderscore = (int)_date.find('_') + 1;
+    int secondUnderscore = (int)_date.find('_', firstUnderscore + 1);
+    return atoi(_date.substr(secondUnderscore + 1, 4).c_str());
+}
+
+void Dates::outputCurrentTime() {
+    time_t currentTime;
+    time(&currentTime);
+    struct tm* now = localtime(&currentTime);
+
+    std::cout << std::setw(2) << std::setfill('0') << now->tm_hour << ":";
+    std::cout << std::setw(2) << std::setfill('0') << now->tm_min << " ";
+    std::cout << std::setw(2) << std::setfill('0') << now->tm_mon + 1 << "/";
+    std::cout << std::setw(2) << std::setfill('0') << now->tm_mday << "/";
+    std::cout << now->tm_year + 1900 << std::endl;
 }

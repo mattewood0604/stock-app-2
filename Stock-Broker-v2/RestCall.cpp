@@ -11,7 +11,6 @@
 #include <unistd.h>
 
 #include "Constants.hpp"
-#include "FileManager.hpp"
 #include "RestCall.hpp"
 
 const std::string RestCall::accountUrl = "https://api.robinhood.com/accounts/5QY77902/";
@@ -22,6 +21,10 @@ RestCall::RestCall() {
 
     this->authenticate();
     this->initializeAvailableCashHandle();
+}
+
+void RestCall::waitForNextCall() const {
+    sleep(2);
 }
 
 void RestCall::initializeQuotesHandle() {
@@ -92,9 +95,7 @@ std::vector<Tick> RestCall::quotes() {
     }
 
     std::vector<Tick> ticks = this->response.parseQuotes();
-    FileManager::writeTicks(ticks);
     this->response.clear();
-
     return ticks;
 }
 
@@ -182,6 +183,49 @@ unsigned int RestCall::getVolumeForStockSymbol(const std::string &_symbol) {
     unsigned int volume = response.parseAverageVolume();
     response.clear();
     return volume;
+}
+
+MarketInfo RestCall::getInfoForToday() {
+    std::string datesUrl = "https://api.robinhood.com/markets/XNYS/hours/";
+
+    time_t currentTime = time(0);
+    struct tm* now = localtime(&currentTime);
+
+    int year = now->tm_year + 1900;
+    datesUrl.append(std::to_string(year));
+    datesUrl.append("-");
+
+    int month = now->tm_mon + 1;
+    if (month < 10) {
+        datesUrl.append("0");
+        datesUrl.append(std::to_string(month));
+    }
+    else {
+        datesUrl.append(std::to_string(month));
+    }
+    datesUrl.append("-");
+
+    int day = now->tm_mday;
+    if (day < 10) {
+        datesUrl.append("0");
+        datesUrl.append(std::to_string(day));
+    }
+    else {
+        datesUrl.append(std::to_string(day));
+    }
+    datesUrl.append("/");
+
+    CURL* allDatesHandle = curl_easy_init();
+
+    curl_easy_setopt(allDatesHandle, CURLOPT_WRITEFUNCTION, RestCall::WriteMemoryCallback);
+    curl_easy_setopt(allDatesHandle, CURLOPT_WRITEDATA, (void*)&response);
+    curl_easy_setopt(allDatesHandle, CURLOPT_URL, datesUrl.c_str());
+    curl_easy_perform(allDatesHandle);
+
+    MarketInfo marketInfo = response.parseMarketInfo();
+    response.clear();
+
+    return marketInfo;
 }
 
 size_t RestCall::WriteMemoryCallback(void* _contents, size_t _size, size_t _nmemb, void* _userp) {

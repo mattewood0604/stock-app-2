@@ -17,6 +17,10 @@ class RestCall {
 public:
     RestCall();
 
+    void waitForNextCall() const;
+
+    MarketInfo getInfoForToday();
+
     std::vector<Tick> quotes();
 
     void instruments();
