@@ -72,6 +72,7 @@ void runStocks() {
             // Add ticks to the stocks we want to buy or sell
             restCall.waitForNextCall();
         }
+
         std::cout << "Closed: ";
         Dates::outputCurrentTime();
 

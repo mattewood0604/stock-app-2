@@ -49,7 +49,8 @@ std::vector<std::string> FileManager::getDatesWithData() {
     struct dirent* entry = readdir(directory);
 
     while (entry != NULL) {
-        if (entry->d_type == DT_DIR && entry->d_namlen > 2) { // > 2 for . and .. directories
+        std::string directoryName = std::string(entry->d_name);
+        if (entry->d_type == DT_DIR && directoryName.length() > 2) { // > 2 for . and .. directories
             dates.push_back(entry->d_name);
         }
 
@@ -109,7 +110,6 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
 }
 
 void FileManager::writeTicks(const std::vector<Tick>& _ticks) {
-    std::cout << "Ticks Size: " << _ticks.size() << std::endl;
     for (unsigned int i = 0; i < _ticks.size(); i++) {
         FileManager::writeTick(_ticks[i]);
     }
@@ -118,7 +118,6 @@ void FileManager::writeTicks(const std::vector<Tick>& _ticks) {
 void FileManager::writeTick(const Tick& _tick) {
     std::string symbol = _tick.getSymbol();
     std::string csv = _tick.toCSV();
-    std::cout << "Write: " << symbol << std::endl << csv << std::endl;
     writeDataForSymbol(symbol, csv);
 }
 
@@ -129,12 +128,10 @@ void FileManager::writeDataForSymbol(const std::string& _symbol, const std::stri
     }
     else {
         std::string fileName = _symbol + ".csv";
-        std::cout << "File Name: " << FileManager::writeDirectory + fileName << std::endl;
         std::string filePath = FileManager::writeDirectory + fileName;
         filePath.erase(std::remove(filePath.begin(), filePath.end(), '\\'), filePath.end());
         symbolFile = new std::ofstream(filePath, std::ofstream::out | std::ofstream::app);
         if (symbolFile->is_open()) {
-            std::cout << "File is open" << std::endl;
             FileManager::writeDataToFile(_data, *symbolFile);
             FileManager::writeFiles[_symbol] = symbolFile;
         }

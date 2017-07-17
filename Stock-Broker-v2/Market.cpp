@@ -36,6 +36,8 @@ void Market::waitForNextOpening() const {
     RestCall restCall;
     time_t currentTime = time(0);
 
+    std::cout << "Market::waitForNextOpening" << std::endl;
+
     MarketInfo marketInfo = restCall.getInfoForToday();
 
     int timeToSleep = (int)(marketInfo.nextOpenDayAsTime() - currentTime);
