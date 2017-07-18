@@ -28,7 +28,7 @@ public:
     static void readTicks(Stock& _stock, const std::string& _date);
     static void writeTicks(const std::vector<Tick>& _ticks);
 
-    static void readStockSymbols();
+    static std::string readStockSymbolsAsCSV();
 //    static bool readQuoteAtStockIndex(const unsigned int& _index);
 //
 //    static void writeTickToFile(const Tick& _tick);
@@ -39,8 +39,10 @@ public:
 //    static void writeProfitsForSymbol(const std::string& _symbol, const std::string& _data);
 
 private:
-    static std::map<std::string, std::map<std::string, std::vector<Tick>>> stockTicksForDate;
+    static const std::string readDirectory;
     static std::string writeDirectory;
+
+    static std::map<std::string, std::map<std::string, std::vector<Tick>>> stockTicksForDate;
 
     static std::map<std::string, std::ofstream*> writeFiles;
 

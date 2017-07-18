@@ -21,11 +21,6 @@ public:
 
     static const bool clearOrderAtDayEnd;
 
-    static const std::string readDirectory;
-    static const std::string writeDirectory;
-
-    static const std::string stocksForQuotesAsCsv;
-
 private:
     Constants();
 };
