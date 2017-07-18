@@ -40,6 +40,8 @@ private:
     void initializeAuthenticationHandle();
     void initializeAvailableCashHandle();
 
+    void logFailureData() const;
+
     void authenticate();
 
     unsigned int getVolumeForStockSymbol(const std::string &_symbol);

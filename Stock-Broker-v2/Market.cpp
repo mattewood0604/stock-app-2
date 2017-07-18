@@ -36,15 +36,16 @@ void Market::waitForNextOpening() const {
     RestCall restCall;
     time_t currentTime = time(0);
 
-    std::cout << "Market::waitForNextOpening" << std::endl;
-
     MarketInfo marketInfo = restCall.getInfoForToday();
 
-    int timeToSleep = (int)(marketInfo.nextOpenDayAsTime() - currentTime);
+    int todayTime = (int)(marketInfo.todayAsTime() - currentTime);
+    int nextDayTime = (int)(marketInfo.nextOpenDayAsTime() - currentTime);
+
+    int timeToSleep = todayTime > 0 ? todayTime : nextDayTime;
     sleep(timeToSleep);
 
     while (!this->isOpen()) {
-        sleep(60);
+        this->waitForMinute();
     }
 }
 
