@@ -11,6 +11,7 @@
 #include <unistd.h>
 
 #include "Constants.hpp"
+#include "FileManager.hpp"
 #include "RestCall.hpp"
 
 const std::string RestCall::accountUrl = "https://api.robinhood.com/accounts/5QY77902/";
@@ -31,7 +32,7 @@ void RestCall::initializeQuotesHandle() {
     quotesHandle = curl_easy_init();
 
     std::string quotesURL = "https://api.robinhood.com/quotes/?symbols=";
-    quotesURL.append(Constants::stocksForQuotesAsCsv);
+    quotesURL.append(FileManager::readStockSymbolsAsCSV());
 
     curl_easy_setopt(quotesHandle, CURLOPT_URL, quotesURL.c_str());
 
@@ -125,13 +126,13 @@ void RestCall::instruments() {
 
         std::vector<std::string> foundSymbols = response.symbolsFromInstruments();
         for (unsigned int i = 0; i < foundSymbols.size(); i++) {
-            //if (foundSymbols[i].compare("JBL") == 0) {
+            if (foundSymbols[i].compare("HOLX") == 0) {
                 foundSymbol = true;
-            //}
+            }
 
             if (foundSymbol) {
                 unsigned int volume = RestCall::getVolumeForStockSymbol(foundSymbols[i]);
-                if (volume >= 1000000) {
+                if (volume >= 2000000) {
                     std::cout << foundSymbols[i] << ": " << volume << std::endl;
                 }
             }

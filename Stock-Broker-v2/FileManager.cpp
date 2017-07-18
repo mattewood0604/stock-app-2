@@ -76,8 +76,7 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
 
     std::string name = Constants::readDirectory + "/" + _date + "/" + _stock.getSymbol() + ".csv";
     std::ifstream* symbolFile = new std::ifstream(name);
-    if (!symbolFile->is_open())
-    {
+    if (!symbolFile->is_open()) {
         std::cout << "ERROR OPENING SYMBOL FILE FOR READING QUOTES" << std::endl;
         std::cout << strerror(errno) << std::endl;
         return;
@@ -151,6 +150,35 @@ void FileManager::writeDataToFile(const std::string& _data, std::ofstream& _file
     _file.flush();
 }
 
-void FileManager::readStockSymbols() {
+std::string FileManager::readStockSymbolsAsCSV() {
+    std::string name = Constants::readDirectory + "StocksForData.txt";
+    std::ifstream* symbolFile = new std::ifstream(name);
 
+    if (!symbolFile->is_open()) {
+        std::cout << "FileManager::readStockSymbols - Error opening stock symbols file" << std::endl;
+        std::cout << strerror(errno) << std::endl;
+        return "";
+    }
+
+    symbolFile->seekg(0, symbolFile->end);
+    unsigned int fileLength = (unsigned int)symbolFile->tellg();
+    symbolFile->seekg(0, symbolFile->beg);
+
+    char* symbolFileData = new char[fileLength];
+    symbolFile->read(symbolFileData, fileLength);
+
+    std::string symbols = std::string(symbolFileData);
+    int lastNewlineIndex = -1;
+    std::string stockSymbols;
+    for (unsigned int i = 0; i < fileLength; i++) {
+        if (symbols[i] == '\n') {
+            std::string symbol = symbols.substr(lastNewlineIndex + 1, i - lastNewlineIndex - 1);
+            stockSymbols.append(symbol);
+            stockSymbols.append(",");
+            lastNewlineIndex = i;
+        }
+    }
+
+    stockSymbols.pop_back();
+    return stockSymbols;
 }
