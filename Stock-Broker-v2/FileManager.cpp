@@ -14,9 +14,8 @@
 #include "Constants.hpp"
 #include "FileManager.hpp"
 
-const std::string FileManager::readDirectory = "/Users/Matt/Desktop/symbol_data/";
-std::string FileManager::writeDirectory = "/Users/Matt/Desktop/symbol_data";
-
+const std::string FileManager::readDirectory = "/media/matt/Seagate Expansion Drive";
+std::string FileManager::writeDirectory = "/media/matt/Seagate\\ Expansion\\ Drive";
 
 std::map<std::string, std::map<std::string, std::vector<Tick>>> FileManager::stockTicksForDate;
 std::map<std::string, std::ofstream*> FileManager::writeFiles;
@@ -148,7 +147,7 @@ void FileManager::writeDataToFile(const std::string& _data, std::ofstream& _file
 }
 
 std::string FileManager::readStockSymbolsAsCSV() {
-    std::string name = FileManager::readDirectory + "StocksForData.txt";
+    std::string name = FileManager::readDirectory + "/StocksForData.txt";
     std::ifstream* symbolFile = new std::ifstream(name);
 
     if (!symbolFile->is_open()) {
