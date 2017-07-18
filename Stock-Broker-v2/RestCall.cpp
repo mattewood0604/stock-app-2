@@ -189,6 +189,8 @@ unsigned int RestCall::getVolumeForStockSymbol(const std::string &_symbol) {
 MarketInfo RestCall::getInfoForToday() {
     std::string datesUrl = "https://api.robinhood.com/markets/XNYS/hours/";
 
+    std::cout << "RestCall::getInfoForToday" << std::endl;
+
     time_t currentTime = time(0);
     struct tm* now = localtime(&currentTime);
 
@@ -216,8 +218,9 @@ MarketInfo RestCall::getInfoForToday() {
     }
     datesUrl.append("/");
 
-    CURL* allDatesHandle = curl_easy_init();
+    std::cout << "datesUrl = " << datesUrl << std::endl;
 
+    CURL* allDatesHandle = curl_easy_init();
     curl_easy_setopt(allDatesHandle, CURLOPT_WRITEFUNCTION, RestCall::WriteMemoryCallback);
     curl_easy_setopt(allDatesHandle, CURLOPT_WRITEDATA, (void*)&response);
     curl_easy_setopt(allDatesHandle, CURLOPT_URL, datesUrl.c_str());
