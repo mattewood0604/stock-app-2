@@ -15,6 +15,3 @@ const bool Constants::logProfits = true;
 const bool Constants::logResponse = false;
 
 const bool Constants::clearOrderAtDayEnd = false;
-
-const std::string Constants::readDirectory = "/media/matt/Seagate Expansion Drive";
-const std::string Constants::writeDirectory = "/media/matt/Seagate\\ Expansion\\ Drive";

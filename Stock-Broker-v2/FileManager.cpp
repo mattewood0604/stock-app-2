@@ -14,14 +14,14 @@
 #include "Constants.hpp"
 #include "FileManager.hpp"
 
+const std::string FileManager::readDirectory = "/Users/Matt/Desktop/symbol_data/";
+std::string FileManager::writeDirectory = "/Users/Matt/Desktop/symbol_data";
+
+
 std::map<std::string, std::map<std::string, std::vector<Tick>>> FileManager::stockTicksForDate;
 std::map<std::string, std::ofstream*> FileManager::writeFiles;
 
-std::string FileManager::writeDirectory = "";
-
 void FileManager::initForWriting() {
-    FileManager::writeDirectory = Constants::writeDirectory;
-
     time_t currentTime = time(0);
     struct tm* now = localtime(&currentTime);
 
@@ -45,7 +45,7 @@ void FileManager::initForWriting() {
 std::vector<std::string> FileManager::getDatesWithData() {
     std::vector<std::string> dates;
 
-    DIR* directory = opendir(Constants::readDirectory.c_str());
+    DIR* directory = opendir(FileManager::readDirectory.c_str());
     struct dirent* entry = readdir(directory);
 
     while (entry != NULL) {
@@ -75,7 +75,7 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
         std::cout << "NO TICKS FOR " << _stock.getSymbol() << " on " << _date << std::endl;
     }
 
-    std::string name = Constants::readDirectory + "/" + _date + "/" + _stock.getSymbol() + ".csv";
+    std::string name = FileManager::readDirectory + "/" + _date + "/" + _stock.getSymbol() + ".csv";
     std::ifstream* symbolFile = new std::ifstream(name);
     if (!symbolFile->is_open()) {
         std::cout << "ERROR OPENING SYMBOL FILE FOR READING QUOTES" << std::endl;
@@ -148,7 +148,7 @@ void FileManager::writeDataToFile(const std::string& _data, std::ofstream& _file
 }
 
 std::string FileManager::readStockSymbolsAsCSV() {
-    std::string name = Constants::readDirectory + "StocksForData.txt";
+    std::string name = FileManager::readDirectory + "StocksForData.txt";
     std::ifstream* symbolFile = new std::ifstream(name);
 
     if (!symbolFile->is_open()) {

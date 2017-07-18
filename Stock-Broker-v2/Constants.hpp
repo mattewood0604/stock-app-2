@@ -21,9 +21,6 @@ public:
 
     static const bool clearOrderAtDayEnd;
 
-    static const std::string readDirectory;
-    static const std::string writeDirectory;
-
 private:
     Constants();
 };

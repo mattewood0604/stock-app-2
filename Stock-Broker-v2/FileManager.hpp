@@ -39,8 +39,10 @@ public:
 //    static void writeProfitsForSymbol(const std::string& _symbol, const std::string& _data);
 
 private:
-    static std::map<std::string, std::map<std::string, std::vector<Tick>>> stockTicksForDate;
+    static const std::string readDirectory;
     static std::string writeDirectory;
+
+    static std::map<std::string, std::map<std::string, std::vector<Tick>>> stockTicksForDate;
 
     static std::map<std::string, std::ofstream*> writeFiles;
 
