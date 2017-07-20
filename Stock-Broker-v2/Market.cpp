@@ -38,6 +38,8 @@ void Market::waitForNextOpening() const {
 
     MarketInfo marketInfo = restCall.getInfoForToday();
 
+    std::cout << "Waiting Until " << marketInfo.nextOpenDay << std::endl;
+
     int todayTime = (int)(marketInfo.todayAsTime() - currentTime);
     int nextDayTime = (int)(marketInfo.nextOpenDayAsTime() - currentTime);
 

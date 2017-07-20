@@ -40,7 +40,7 @@ private:
     void initializeAuthenticationHandle();
     void initializeAvailableCashHandle();
 
-    void logFailureData() const;
+    void logFailureData(CURL* _handle) const;
 
     void authenticate();
 
