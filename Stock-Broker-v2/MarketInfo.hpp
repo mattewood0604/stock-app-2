@@ -15,6 +15,7 @@ class MarketInfo {
 public:
     MarketInfo();
 
+	time_t todayAsTime() const;
     time_t nextOpenDayAsTime() const;
 
     bool opensToday;

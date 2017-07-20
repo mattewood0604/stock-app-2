@@ -15,7 +15,8 @@
 #include "FileManager.hpp"
 
 const std::string FileManager::readDirectory = "/media/matt/Seagate Expansion Drive";
-std::string FileManager::writeDirectory = "/media/matt/Seagate\\ Expansion\\ Drive";
+const std::string FileManager::writeDirectory = "/media/matt/Seagate\\ Expansion\\ Drive";
+std::string FileManager::dayWriteDirectory = writeDirectory;
 
 std::map<std::string, std::map<std::string, std::vector<Tick>>> FileManager::stockTicksForDate;
 std::map<std::string, std::ofstream*> FileManager::writeFiles;
@@ -24,19 +25,22 @@ void FileManager::initForWriting() {
     time_t currentTime = time(0);
     struct tm* now = localtime(&currentTime);
 
+    FileManager::dayWriteDirectory = writeDirectory;
+    FileManager::writeFiles = std::map<std::string, std::ofstream*>();
+
     std::string month = (now->tm_mon + 1 < 10) ? std::to_string(now->tm_mon + 1).insert(0, "0") : std::to_string(now->tm_mon + 1);
     std::string day = (now->tm_mday < 10) ? std::to_string(now->tm_mday).insert(0, "0") : std::to_string(now->tm_mday);
 
-    FileManager::writeDirectory.append("/");
-    FileManager::writeDirectory.append(month);
-    FileManager::writeDirectory.append("_");
-    FileManager::writeDirectory.append(day);
-    FileManager::writeDirectory.append("_");
-    FileManager::writeDirectory.append(std::to_string(now->tm_year + 1900));
-    FileManager::writeDirectory.append("/");
+    FileManager::dayWriteDirectory.append("/");
+    FileManager::dayWriteDirectory.append(month);
+    FileManager::dayWriteDirectory.append("_");
+    FileManager::dayWriteDirectory.append(day);
+    FileManager::dayWriteDirectory.append("_");
+    FileManager::dayWriteDirectory.append(std::to_string(now->tm_year + 1900));
+    FileManager::dayWriteDirectory.append("/");
 
     std::string makeDirectory = "mkdir ";
-    makeDirectory.append(FileManager::writeDirectory);
+    makeDirectory.append(FileManager::dayWriteDirectory);
 
     system(makeDirectory.c_str());
 }
@@ -126,7 +130,7 @@ void FileManager::writeDataForSymbol(const std::string& _symbol, const std::stri
     }
     else {
         std::string fileName = _symbol + ".csv";
-        std::string filePath = FileManager::writeDirectory + fileName;
+        std::string filePath = FileManager::dayWriteDirectory + fileName;
         filePath.erase(std::remove(filePath.begin(), filePath.end(), '\\'), filePath.end());
         symbolFile = new std::ofstream(filePath, std::ofstream::out | std::ofstream::app);
         if (symbolFile->is_open()) {

@@ -15,6 +15,18 @@ MarketInfo::MarketInfo() {
     this->opensToday = false;
 }
 
+time_t MarketInfo::todayAsTime() const {
+    time_t rawtime;
+    time(&rawtime);
+
+    struct tm tm;
+    tm = *localtime(&rawtime);
+    tm.tm_hour = 9;
+    tm.tm_min = 25;
+
+    return mktime(&tm);
+}
+
 time_t MarketInfo::nextOpenDayAsTime() const {
     int day = this->getDay();
     int month = this->getMonth();

@@ -63,8 +63,10 @@ void RestCall::initializeAvailableCashHandle() {
     struct curl_slist* headers = NULL;
     std::string authorization = "Authorization: Token ";
     if (!authenticationToken.size()) {
-        std::cout << "Error: Authentication Token NULL in initializeAvailableCashHandle" << std::endl;
+        std::cout << "Error: Authentication Token NULL in RestCall::initializeAvailableCashHandle" << std::endl;
+        return;
     }
+
     authorization.append(authenticationToken);
     headers = curl_slist_append(headers, authorization.c_str());
     curl_easy_setopt(availableCashHandle, CURLOPT_HTTPHEADER, headers);
@@ -76,10 +78,11 @@ void RestCall::initializeAvailableCashHandle() {
 void RestCall::authenticate() {
     CURLcode returnCode = curl_easy_perform(authenticationHandle);
     if (returnCode != CURLE_OK) {
-        fprintf(stderr, "AUTHENTICATION: curl_easy_perform() failed: %s\n", curl_easy_strerror(returnCode));
+        fprintf(stderr, "RestCall::authenticate: curl_easy_perform() failed: %s\n", curl_easy_strerror(returnCode));
+        this->logFailureData(authenticationHandle);
     }
     else {
-        this->response.log();
+        response.log();
     }
 
     this->authenticationToken = response.parseAuthentication();
@@ -90,6 +93,8 @@ std::vector<Tick> RestCall::quotes() {
     CURLcode ret = curl_easy_perform(quotesHandle);
     if(ret != CURLE_OK) {
         fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(ret));
+        this->logFailureData(quotesHandle);
+        return std::vector<Tick>();
     }
     else {
         response.log();
@@ -114,6 +119,7 @@ void RestCall::instruments() {
     CURLcode returnCode = curl_easy_perform(instrumentsHandle);
     if (returnCode != CURLE_OK) {
         fprintf(stderr, "instruments: curl_easy_perform() failed: %s\n", curl_easy_strerror(returnCode));
+        this->logFailureData(instrumentsHandle);
     }
 
     unsigned int total = 0;
@@ -137,23 +143,18 @@ void RestCall::instruments() {
                 }
             }
         }
-        //total += allSymbols.size();
 
         response.clear();
-
-        //instrumentsHande = curl_easy_init();
 
         curl_easy_reset(instrumentsHandle);
         curl_easy_setopt(instrumentsHandle, CURLOPT_URL, nextUrl.c_str());
         curl_easy_setopt(instrumentsHandle, CURLOPT_WRITEFUNCTION, RestCall::WriteMemoryCallback);
         curl_easy_setopt(instrumentsHandle, CURLOPT_WRITEDATA, (void*)&response);
 
-        //curl_easy_setopt(instrumentsHande, CURLOPT_WRITEFUNCTION, RestCall::WriteMemoryCallback);
-        //curl_easy_setopt(instrumentsHande, CURLOPT_WRITEDATA, (void*)&response);
-
         returnCode = curl_easy_perform(instrumentsHandle);
         if (returnCode != CURLE_OK) {
             fprintf(stderr, "instruments: curl_easy_perform() failed: %s\n", curl_easy_strerror(returnCode));
+            this->logFailureData(instrumentsHandle);
         }
         
         nextUrl = response.nextUrlForInstruments();
@@ -178,6 +179,7 @@ unsigned int RestCall::getVolumeForStockSymbol(const std::string &_symbol) {
     CURLcode returnCode = curl_easy_perform(stockFundamentalsHandle);
     if (returnCode != CURLE_OK) {
         fprintf(stderr, "getVolumeForStockSymbol %s: %s\n curl_easy_perform() failed: %s\n", _symbol.c_str(), stockFundamentalsUrl.c_str(), curl_easy_strerror(returnCode));
+        this->logFailureData(stockFundamentalsHandle);
         return 0;
     }
 
@@ -188,8 +190,6 @@ unsigned int RestCall::getVolumeForStockSymbol(const std::string &_symbol) {
 
 MarketInfo RestCall::getInfoForToday() {
     std::string datesUrl = "https://api.robinhood.com/markets/XNYS/hours/";
-
-    std::cout << "RestCall::getInfoForToday" << std::endl;
 
     time_t currentTime = time(0);
     struct tm* now = localtime(&currentTime);
@@ -218,13 +218,15 @@ MarketInfo RestCall::getInfoForToday() {
     }
     datesUrl.append("/");
 
-    std::cout << "datesUrl = " << datesUrl << std::endl;
-
     CURL* allDatesHandle = curl_easy_init();
     curl_easy_setopt(allDatesHandle, CURLOPT_WRITEFUNCTION, RestCall::WriteMemoryCallback);
     curl_easy_setopt(allDatesHandle, CURLOPT_WRITEDATA, (void*)&response);
     curl_easy_setopt(allDatesHandle, CURLOPT_URL, datesUrl.c_str());
-    curl_easy_perform(allDatesHandle);
+    CURLcode returnCode = curl_easy_perform(allDatesHandle);
+    if (returnCode != CURLE_OK) {
+        fprintf(stderr, "RestCall::getInfoForToday: curl_easy_perform() failed: %s\n", curl_easy_strerror(returnCode));
+        this->logFailureData(allDatesHandle);
+    }
 
     MarketInfo marketInfo = response.parseMarketInfo();
     response.clear();
@@ -237,4 +239,12 @@ size_t RestCall::WriteMemoryCallback(void* _contents, size_t _size, size_t _nmem
     Response* response = (Response*)_userp;
     response->recreate(_contents, realsize);
     return realsize;
+}
+
+void RestCall::logFailureData(CURL* _handle) const {
+    char* data;
+    curl_easy_getinfo(_handle, CURLINFO_EFFECTIVE_URL, &data);
+    std::cout << "Last Url: " << data << std::endl;
+    curl_easy_getinfo(_handle, CURLINFO_RESPONSE_CODE, &data);
+    std::cout << "Response Code: " << data << std::endl;
 }
