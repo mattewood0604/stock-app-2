@@ -18,7 +18,22 @@ Dates::Dates() {
 
     std::sort(dates.begin(), dates.end(), sortDates);
 
-    this->dates = dates;
+    std::vector<std::string> filteredDates;
+    for (unsigned int i = 0; i < dates.size(); i++) {
+        std::string date = dates[i];
+        if (date == "07_11_2017" ||
+            date == "07_12_2017" ||
+            date == "07_13_2017" ||
+            date == "07_14_2017" ||
+            date == "07_17_2017" ||
+            date == "07_18_2017" ||
+            date == "07_19_2017" ||
+            date == "07_20_2017") {
+            filteredDates.push_back(date);
+        }
+    }
+
+    this->dates = filteredDates;
 }
 
 unsigned int Dates::numberOfDates() const {

@@ -55,7 +55,7 @@ ZigZagMaximize* Maximizer::runZigZag(ZigZagMaximize* _zigZagMaximize) {
         _zigZagMaximize->totalTrades = stock.getTotalTrades();
         _zigZagMaximize->positiveTrades = stock.getPositiveTrades();
         _zigZagMaximize->negativeTrades = stock.getNegativeTrades();
-        _zigZagMaximize->log();
+        _zigZagMaximize->addOutput();
     }
 
     return _zigZagMaximize;
@@ -88,8 +88,11 @@ void Maximizer::maximizeZigZag() {
 
             if (threadsUsed >= NUMBER_OF_THREADS) {
                 for (unsigned int i = 0; i < threadsUsed; i++) {
-                    results[i].get(); // This might be needed to close the threads but I don't know
+                    ZigZagMaximize* zigZagMaximize = results[i].get(); // This might be needed to close the threads but I don't know
+                    zigZagMaximize->log();
+                    zigZagMaximize->clearOutput();
                 }
+
                 threadsUsed = 0;
             }
         }
@@ -97,8 +100,10 @@ void Maximizer::maximizeZigZag() {
 
     if (threadsUsed >= NUMBER_OF_THREADS) {
         for (unsigned int i = 0; i < threadsUsed; i++) {
-            results[i].get();
+            ZigZagMaximize* zigZagMaximize = results[i].get(); // This might be needed to close the threads but I don't know
+            zigZagMaximize->log();
         }
+
         threadsUsed = 0;
     }
 

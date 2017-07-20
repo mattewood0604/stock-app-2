@@ -33,6 +33,10 @@ void runProfits(Stock& _stock) {
         _stock.logProfits();
         _stock.resetDailyProfits();
     }
+}
+
+void logProfits(const Stock& _stock) {
+    Dates dates;
 
     std::cout << std::endl;
     std::cout << "-+-+-+-+-+-+-+-+-+" << std::endl;
@@ -53,6 +57,11 @@ void runStocks() {
 
     std::cout << "~-~-~Application Start Up~-~-~" << std::endl;
 
+    // RunProfits
+    // Load up all of the stocks that I want to buy
+    // Run all of the profits of them to set up what should happen
+    // Make sure the previous days candles are still saved
+
     market.waitForNextOpening();
 
     while(true) {
@@ -70,6 +79,7 @@ void runStocks() {
             ticks = restCall.quotes();
             FileManager::writeTicks(ticks);
             // Add ticks to the stocks we want to buy or sell
+            // Each time a new candle is added to the end make sure to pop one off the front
             restCall.waitForNextCall();
         }
 
@@ -86,8 +96,8 @@ int main() {
     Stock jdst("JDST", 0.01, ZigZag(26, 47), OnYourMark(0, 0, 0, 0));
     Stock dust("DUST", 0.01, ZigZag(21, 51), OnYourMark(0, 0, 0, 0));
 
-    runStocks();
-    //FileManager::initForWriting();
+    // runStocks();
+    // FileManager::initForWriting();
 
     // RestCall restCall;
     // restCall.quotes();
@@ -97,7 +107,8 @@ int main() {
     // maximizer.maximizeZigZag();
     // maximizer.maximizeOnYourMark();
 
-//     runProfits(jdst);
+    runProfits(jnug);
+    logProfits(jnug);
 
     return 0;
 }

@@ -9,9 +9,15 @@
 #ifndef ZigZagMaximizer_hpp
 #define ZigZagMaximizer_hpp
 
+#include <string>
+
 class ZigZagMaximize {
 public:
     ZigZagMaximize();
+
+    void addOutput();
+    void clearOutput();
+
     void log() const;
 
     float percentage;
@@ -22,6 +28,8 @@ public:
     unsigned int totalTrades;
     unsigned int positiveTrades;
     unsigned int negativeTrades;
+
+    std::string output;
 };
 
 
