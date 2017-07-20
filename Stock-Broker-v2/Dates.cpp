@@ -14,7 +14,8 @@
 #include "FileManager.hpp"
 
 Dates::Dates() {
-    std::vector<std::string> dates = FileManager::getDatesWithData();
+    FileManager fileManager;
+    std::vector<std::string> dates = fileManager.getDatesWithData();
 
     std::sort(dates.begin(), dates.end(), sortDates);
 

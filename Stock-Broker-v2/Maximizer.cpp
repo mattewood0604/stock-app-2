@@ -22,10 +22,12 @@ Maximizer::Maximizer(const std::string& _stockSymbol) {
 }
 
 void Maximizer::readStockTicks() {
+    FileManager fileManager;
     Dates dates;
     Stock stock(this->stockSymbol, 0, ZigZag(0, 0), OnYourMark(0, 0, 0, 0));
+
     for (unsigned int i = 0; i < dates.numberOfDates(); i++) {
-        FileManager::readTicks(stock, dates.getDate(i));
+        fileManager.readTicks(stock, dates.getDate(i));
     }
 }
 
@@ -33,6 +35,7 @@ ZigZagMaximize* Maximizer::runZigZag(ZigZagMaximize* _zigZagMaximize) {
     unsigned int lengthStart = 1;
     unsigned int lengthIterations = 60;
 
+    FileManager fileManager;
     Dates dates;
     for (unsigned int movingAverageLength = lengthStart; movingAverageLength <= lengthStart + lengthIterations; movingAverageLength++) {
         _zigZagMaximize->movingAverageLength = movingAverageLength;
@@ -42,7 +45,7 @@ ZigZagMaximize* Maximizer::runZigZag(ZigZagMaximize* _zigZagMaximize) {
         for (unsigned int i = 0; i < dates.numberOfDates(); i++) {
             stock.clearData();
 
-            FileManager::readTicks(stock, dates.getDate(i));
+            fileManager.readTicks(stock, dates.getDate(i));
 
             for (unsigned int j = 0; j < stock.getTotalTicks(); j++) {
                 stock.mockRestCall(j);
@@ -126,6 +129,7 @@ void Maximizer::maximizeOnYourMark() {
     unsigned int overIterations = 10;
     unsigned int readyIterations = 10;
 
+    FileManager fileManager;
     Dates dates;
     uint64_t totalTime = 0;
 
@@ -145,7 +149,7 @@ void Maximizer::maximizeOnYourMark() {
                     for (unsigned int i = 0; i < dates.numberOfDates(); i++) {
                         stock.clearData();
 
-                        FileManager::readTicks(stock, dates.getDate(i));
+                        fileManager.readTicks(stock, dates.getDate(i));
 
                         for (unsigned int j = 0; j < stock.getTotalTicks(); j++) {
                             stock.mockRestCall(j);

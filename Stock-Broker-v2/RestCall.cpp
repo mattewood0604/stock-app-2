@@ -29,10 +29,11 @@ void RestCall::waitForNextCall() const {
 }
 
 void RestCall::initializeQuotesHandle() {
-    quotesHandle = curl_easy_init();
-
+    FileManager fileManager;
     std::string quotesURL = "https://api.robinhood.com/quotes/?symbols=";
-    quotesURL.append(FileManager::readStockSymbolsAsCSV());
+
+    quotesHandle = curl_easy_init();
+    quotesURL.append(fileManager.readStockSymbolsAsCSV());
 
     curl_easy_setopt(quotesHandle, CURLOPT_URL, quotesURL.c_str());
 

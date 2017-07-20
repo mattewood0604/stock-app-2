@@ -14,33 +14,32 @@
 #include "Constants.hpp"
 #include "FileManager.hpp"
 
-const std::string FileManager::readDirectory = "/media/matt/Seagate Expansion Drive";
-const std::string FileManager::writeDirectory = "/media/matt/Seagate\\ Expansion\\ Drive";
-std::string FileManager::dayWriteDirectory = writeDirectory;
-
-std::map<std::string, std::map<std::string, std::vector<Tick>>> FileManager::stockTicksForDate;
-std::map<std::string, std::ofstream*> FileManager::writeFiles;
+FileManager::FileManager() {
+    this->dayWriteDirectory = FileManager::writeDirectory;
+    this->stockTicksForDate = std::map<std::string, std::map<std::string, std::vector<Tick>>>();
+    this->writeFiles = std::map<std::string, std::ofstream*>();
+}
 
 void FileManager::initForWriting() {
     time_t currentTime = time(0);
     struct tm* now = localtime(&currentTime);
 
-    FileManager::dayWriteDirectory = writeDirectory;
-    FileManager::writeFiles = std::map<std::string, std::ofstream*>();
+    this->dayWriteDirectory = writeDirectory;
+    this->writeFiles = std::map<std::string, std::ofstream*>();
 
     std::string month = (now->tm_mon + 1 < 10) ? std::to_string(now->tm_mon + 1).insert(0, "0") : std::to_string(now->tm_mon + 1);
     std::string day = (now->tm_mday < 10) ? std::to_string(now->tm_mday).insert(0, "0") : std::to_string(now->tm_mday);
 
-    FileManager::dayWriteDirectory.append("/");
-    FileManager::dayWriteDirectory.append(month);
-    FileManager::dayWriteDirectory.append("_");
-    FileManager::dayWriteDirectory.append(day);
-    FileManager::dayWriteDirectory.append("_");
-    FileManager::dayWriteDirectory.append(std::to_string(now->tm_year + 1900));
-    FileManager::dayWriteDirectory.append("/");
+    this->dayWriteDirectory.append("/");
+    this->dayWriteDirectory.append(month);
+    this->dayWriteDirectory.append("_");
+    this->dayWriteDirectory.append(day);
+    this->dayWriteDirectory.append("_");
+    this->dayWriteDirectory.append(std::to_string(now->tm_year + 1900));
+    this->dayWriteDirectory.append("/");
 
     std::string makeDirectory = "mkdir ";
-    makeDirectory.append(FileManager::dayWriteDirectory);
+    makeDirectory.append(this->dayWriteDirectory);
 
     system(makeDirectory.c_str());
 }
@@ -48,7 +47,7 @@ void FileManager::initForWriting() {
 std::vector<std::string> FileManager::getDatesWithData() {
     std::vector<std::string> dates;
 
-    DIR* directory = opendir(FileManager::readDirectory.c_str());
+    DIR* directory = opendir(this->readDirectory.c_str());
     struct dirent* entry = readdir(directory);
 
     while (entry != NULL) {
@@ -78,7 +77,7 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
         std::cout << "NO TICKS FOR " << _stock.getSymbol() << " on " << _date << std::endl;
     }
 
-    std::string name = FileManager::readDirectory + "/" + _date + "/" + _stock.getSymbol() + ".csv";
+    std::string name = this->readDirectory + "/" + _date + "/" + _stock.getSymbol() + ".csv";
     std::ifstream* symbolFile = new std::ifstream(name);
     if (!symbolFile->is_open()) {
         std::cout << "ERROR OPENING SYMBOL FILE FOR READING QUOTES" << std::endl;
@@ -113,7 +112,7 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
 
 void FileManager::writeTicks(const std::vector<Tick>& _ticks) {
     for (unsigned int i = 0; i < _ticks.size(); i++) {
-        FileManager::writeTick(_ticks[i]);
+        this->writeTick(_ticks[i]);
     }
 }
 
@@ -124,18 +123,18 @@ void FileManager::writeTick(const Tick& _tick) {
 }
 
 void FileManager::writeDataForSymbol(const std::string& _symbol, const std::string& _data) {
-    std::ofstream* symbolFile = FileManager::writeFiles[_symbol];
+    std::ofstream* symbolFile = this->writeFiles[_symbol];
     if (symbolFile != NULL) {
-        FileManager::writeDataToFile(_data, *symbolFile);
+        this->writeDataToFile(_data, *symbolFile);
     }
     else {
         std::string fileName = _symbol + ".csv";
-        std::string filePath = FileManager::dayWriteDirectory + fileName;
+        std::string filePath = this->dayWriteDirectory + fileName;
         filePath.erase(std::remove(filePath.begin(), filePath.end(), '\\'), filePath.end());
         symbolFile = new std::ofstream(filePath, std::ofstream::out | std::ofstream::app);
         if (symbolFile->is_open()) {
-            FileManager::writeDataToFile(_data, *symbolFile);
-            FileManager::writeFiles[_symbol] = symbolFile;
+            this->writeDataToFile(_data, *symbolFile);
+            this->writeFiles[_symbol] = symbolFile;
         }
         else {
             delete symbolFile;
@@ -151,7 +150,7 @@ void FileManager::writeDataToFile(const std::string& _data, std::ofstream& _file
 }
 
 std::string FileManager::readStockSymbolsAsCSV() {
-    std::string name = FileManager::readDirectory + "/StocksForData.txt";
+    std::string name = this->readDirectory + "/StocksForData.txt";
     std::ifstream* symbolFile = new std::ifstream(name);
 
     if (!symbolFile->is_open()) {

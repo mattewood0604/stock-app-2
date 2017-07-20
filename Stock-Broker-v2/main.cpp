@@ -17,6 +17,7 @@
 #include <future>
 
 void runProfits(Stock& _stock) {
+    FileManager fileManager;
     Dates dates;
 
     for (unsigned int i = 0; i < dates.numberOfDates(); i++) {
@@ -24,7 +25,7 @@ void runProfits(Stock& _stock) {
 
         std::cout << dates.getDate(i) << std::endl;
         std::cout << "------------" << std::endl;
-        FileManager::readTicks(_stock, dates.getDate(i));
+        fileManager.readTicks(_stock, dates.getDate(i));
 
         for (unsigned int j = 0; j < _stock.getTotalTicks(); j++) {
             _stock.mockRestCall(j);
@@ -65,7 +66,8 @@ void runStocks() {
     market.waitForNextOpening();
 
     while(true) {
-        FileManager::initForWriting();
+        FileManager fileManager;
+        fileManager.initForWriting();
         std::vector<Tick> ticks;
 
         bool justOpened = true;
@@ -77,7 +79,7 @@ void runStocks() {
             }
 
             ticks = restCall.quotes();
-            FileManager::writeTicks(ticks);
+            fileManager.writeTicks(ticks);
             // Add ticks to the stocks we want to buy or sell
             // Each time a new candle is added to the end make sure to pop one off the front
             restCall.waitForNextCall();
@@ -95,6 +97,8 @@ int main() {
     Stock jnug("JNUG", 0.01, ZigZag(72, 34), OnYourMark(0, 0, 0, 0));
     Stock jdst("JDST", 0.01, ZigZag(26, 47), OnYourMark(0, 0, 0, 0));
     Stock dust("DUST", 0.01, ZigZag(21, 51), OnYourMark(0, 0, 0, 0));
+
+    
 
     // runStocks();
     // FileManager::initForWriting();
