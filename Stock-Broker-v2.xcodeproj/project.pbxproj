@@ -16,6 +16,8 @@
 		C94F03811F196DB8001EC9A1 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C94F037E1F196DB8001EC9A1 /* libcurl.tbd */; };
 		C94F03871F1BCDFC001EC9A1 /* Market.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F03851F1BCDFC001EC9A1 /* Market.cpp */; };
 		C94F038C1F1BFBAE001EC9A1 /* MarketInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F038A1F1BFBAE001EC9A1 /* MarketInfo.cpp */; };
+		C94F038E1F21766D001EC9A1 /* FIleManagerConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F038D1F21766D001EC9A1 /* FIleManagerConstants.cpp */; };
+		C94F03921F21826F001EC9A1 /* Broker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94F03901F21826F001EC9A1 /* Broker.cpp */; };
 		C9E2BD8B1F0940570036AD4E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD8A1F0940570036AD4E /* main.cpp */; };
 		C9E2BD931F0943DB0036AD4E /* Tick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD911F0943DB0036AD4E /* Tick.cpp */; };
 		C9E2BD961F0944FE0036AD4E /* FileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E2BD941F0944FE0036AD4E /* FileManager.cpp */; };
@@ -58,6 +60,9 @@
 		C94F03861F1BCDFC001EC9A1 /* Market.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Market.hpp; sourceTree = "<group>"; };
 		C94F038A1F1BFBAE001EC9A1 /* MarketInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MarketInfo.cpp; sourceTree = "<group>"; };
 		C94F038B1F1BFBAE001EC9A1 /* MarketInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MarketInfo.hpp; sourceTree = "<group>"; };
+		C94F038D1F21766D001EC9A1 /* FIleManagerConstants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FIleManagerConstants.cpp; sourceTree = "<group>"; };
+		C94F03901F21826F001EC9A1 /* Broker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Broker.cpp; sourceTree = "<group>"; };
+		C94F03911F21826F001EC9A1 /* Broker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Broker.hpp; sourceTree = "<group>"; };
 		C9E2BD871F0940570036AD4E /* Stock-Broker-v2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Stock-Broker-v2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E2BD8A1F0940570036AD4E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C9E2BD911F0943DB0036AD4E /* Tick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tick.cpp; sourceTree = "<group>"; };
@@ -155,6 +160,15 @@
 			name = MarketInfo;
 			sourceTree = "<group>";
 		};
+		C94F038F1F218261001EC9A1 /* Broker */ = {
+			isa = PBXGroup;
+			children = (
+				C94F03901F21826F001EC9A1 /* Broker.cpp */,
+				C94F03911F21826F001EC9A1 /* Broker.hpp */,
+			);
+			name = Broker;
+			sourceTree = "<group>";
+		};
 		C9E2BD7E1F0940570036AD4E = {
 			isa = PBXGroup;
 			children = (
@@ -175,11 +189,7 @@
 		C9E2BD891F0940570036AD4E /* Stock-Broker-v2 */ = {
 			isa = PBXGroup;
 			children = (
-				C94F03881F1BFB99001EC9A1 /* MarketInfo */,
-				C94F03841F1BCDEA001EC9A1 /* Market */,
-				C94F03771F19645E001EC9A1 /* Response */,
-				C94F03731F196078001EC9A1 /* RestCall */,
-				C94F036C1F1849A9001EC9A1 /* Maximizer */,
+				C94F038F1F218261001EC9A1 /* Broker */,
 				C9E2BDBF1F0C13680036AD4E /* BuySell */,
 				C9E2BDA21F0979B40036AD4E /* Candle */,
 				C9E2BD9C1F0947BC0036AD4E /* Constants */,
@@ -187,7 +197,12 @@
 				C9E2BD9B1F0947B00036AD4E /* FileManager */,
 				C9E2BDC81F0C58220036AD4E /* OnYourMark */,
 				C9E2BDC01F0C13710036AD4E /* Order */,
+				C94F03841F1BCDEA001EC9A1 /* Market */,
+				C94F03881F1BFB99001EC9A1 /* MarketInfo */,
+				C94F036C1F1849A9001EC9A1 /* Maximizer */,
 				C9E2BDC41F0C41BA0036AD4E /* Profits */,
+				C94F03771F19645E001EC9A1 /* Response */,
+				C94F03731F196078001EC9A1 /* RestCall */,
 				C9E2BD9D1F094D390036AD4E /* Stock */,
 				C9E2BD9A1F0947A80036AD4E /* Tick */,
 				C9E2BDBE1F0C135B0036AD4E /* ZigZag */,
@@ -210,6 +225,7 @@
 			children = (
 				C9E2BD941F0944FE0036AD4E /* FileManager.cpp */,
 				C9E2BD951F0944FE0036AD4E /* FileManager.hpp */,
+				C94F038D1F21766D001EC9A1 /* FIleManagerConstants.cpp */,
 			);
 			name = FileManager;
 			sourceTree = "<group>";
@@ -357,6 +373,8 @@
 				C9E2BDA51F0979CC0036AD4E /* Candle.cpp in Sources */,
 				C9E2BDBA1F0C0EA50036AD4E /* BuySell.cpp in Sources */,
 				C94F03871F1BCDFC001EC9A1 /* Market.cpp in Sources */,
+				C94F03921F21826F001EC9A1 /* Broker.cpp in Sources */,
+				C94F038E1F21766D001EC9A1 /* FIleManagerConstants.cpp in Sources */,
 				C94F03761F19608C001EC9A1 /* RestCall.cpp in Sources */,
 				C9E2BDC71F0C41F60036AD4E /* OnYourMark.cpp in Sources */,
 				C9E2BDA01F094D430036AD4E /* Stock.cpp in Sources */,
