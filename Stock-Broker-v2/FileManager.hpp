@@ -20,6 +20,7 @@
 class FileManager {
 public:
     FileManager();
+    ~FileManager();
     
     void initForWriting();
 

@@ -20,6 +20,15 @@ FileManager::FileManager() {
     this->writeFiles = std::map<std::string, std::ofstream*>();
 }
 
+FileManager::~FileManager() {
+    for (std::map<std::string, std::ofstream*>::iterator it = this->writeFiles.begin(); it != this->writeFiles.end(); it++) {
+        std::ofstream* file = this->writeFiles[it->first];
+        if (file) {
+            delete this->writeFiles[it->first];
+        }
+    }
+}
+
 void FileManager::initForWriting() {
     time_t currentTime = time(0);
     struct tm* now = localtime(&currentTime);
@@ -107,6 +116,7 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
 
     symbolFile->close();
 
+    delete symbolFile;
     delete [] symbolFileData;
 }
 
@@ -179,5 +189,10 @@ std::string FileManager::readStockSymbolsAsCSV() {
     }
 
     stockSymbols.pop_back();
+
+    symbolFile->close();
+    delete symbolFile;
+    delete [] symbolFileData;
+
     return stockSymbols;
 }

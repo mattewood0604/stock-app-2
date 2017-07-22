@@ -31,7 +31,13 @@ Stock::Stock(const std::string& _symbol, const float& _perTradeLoss, const ZigZa
 }
 
 Stock::~Stock() {
-    delete this->zigZag;
+    if (this->zigZag) {
+        delete this->zigZag;
+    }
+
+    if (this-> onYourMark) {
+        delete this->onYourMark;
+    }
 }
 
 void Stock::clearData() {
