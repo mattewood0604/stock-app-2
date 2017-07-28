@@ -8,7 +8,6 @@
 
 #include "Dates.hpp"
 #include "Market.hpp"
-#include "RestCall.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -32,16 +31,13 @@ bool Market::isOpen() const {
     return false;
 }
 
-void Market::waitForNextOpening() const {
-    RestCall restCall;
+void Market::waitForNextOpening(const MarketInfo& _marketInfo) const {
     time_t currentTime = time(0);
 
-    MarketInfo marketInfo = restCall.getInfoForToday();
+    std::cout << "Waiting Until " << _marketInfo.nextOpenDay << std::endl;
 
-    std::cout << "Waiting Until " << marketInfo.nextOpenDay << std::endl;
-
-    int todayTime = (int)(marketInfo.todayAsTime() - currentTime);
-    int nextDayTime = (int)(marketInfo.nextOpenDayAsTime() - currentTime);
+    int todayTime = (int)(_marketInfo.todayAsTime() - currentTime);
+    int nextDayTime = (int)(_marketInfo.nextOpenDayAsTime() - currentTime);
 
     int timeToSleep = todayTime > 0 ? todayTime : nextDayTime;
     sleep(timeToSleep);
