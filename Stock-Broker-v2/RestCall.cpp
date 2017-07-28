@@ -246,6 +246,8 @@ void RestCall::logFailureData(CURL* _handle) const {
     char* data;
     curl_easy_getinfo(_handle, CURLINFO_EFFECTIVE_URL, &data);
     std::cout << "Last Url: " << data << std::endl;
-    curl_easy_getinfo(_handle, CURLINFO_RESPONSE_CODE, &data);
-    std::cout << "Response Code: " << data << std::endl;
+
+    int responseCode;
+    curl_easy_getinfo(_handle, CURLINFO_RESPONSE_CODE, &responseCode);
+    std::cout << "Response Code: " << responseCode << std::endl;
 }

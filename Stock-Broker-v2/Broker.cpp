@@ -53,6 +53,8 @@ void Broker::run() {
             fileManager.writeTicks(ticks);
             // Add ticks to the stocks we want to buy or sell
             // Each time a new candle is added to the end make sure to pop one off the front
+            this->addTicksToStocks(ticks);
+
             restCall.waitForNextCall();
         }
 
@@ -87,6 +89,16 @@ void Broker::initializeForRun() {
             }
 
             stock.resetDailyProfits();
+        }
+    }
+}
+
+void Broker::addTicksToStocks(const std::vector<Tick>& _ticks) {
+    for (unsigned int i = 0; i < this->stocks.size(); i++) {
+        for (unsigned int j = 0; j < _ticks.size(); j++) {
+            if (_ticks[j].getSymbol().compare(this->stocks[i]->getSymbol()) == 0) {
+                std::cout << _ticks[j].getSymbol() << " == " << this->stocks[i]->getSymbol() << std::endl;
+            }
         }
     }
 }

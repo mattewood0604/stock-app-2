@@ -23,6 +23,7 @@ private:
     std::vector<Stock*> stocks;
 
     void initializeForRun();
+    void addTicksToStocks(const std::vector<Tick>& _ticks);
 
     void logProfits(const Stock& _stock);
 
