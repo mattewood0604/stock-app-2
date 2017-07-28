@@ -36,6 +36,7 @@ void RestCall::initializeQuotesHandle() {
 
     curl_easy_setopt(quotesHandle, CURLOPT_URL, quotesURL.c_str());
 
+    curl_easy_setopt(quotesHandle, CURLOPT_SSL_VERIFYPEER, 0);
     curl_easy_setopt(quotesHandle, CURLOPT_WRITEFUNCTION, RestCall::WriteMemoryCallback);
     curl_easy_setopt(quotesHandle, CURLOPT_WRITEDATA, (void*)&response);
 }
@@ -50,6 +51,8 @@ void RestCall::initializeAuthenticationHandle() {
     headers = curl_slist_append(headers, "Accept: application/json");
     curl_easy_setopt(authenticationHandle, CURLOPT_HTTPHEADER, headers);
 
+    curl_easy_setopt(authenticationHandle, CURLOPT_VERBOSE, 0);
+    curl_easy_setopt(authenticationHandle, CURLOPT_SSL_VERIFYPEER, 0);
     curl_easy_setopt(authenticationHandle, CURLOPT_POSTFIELDS, "username=mattewood&password=1OrangeHippoWithAn!");
     curl_easy_setopt(authenticationHandle, CURLOPT_WRITEFUNCTION, RestCall::WriteMemoryCallback);
     curl_easy_setopt(authenticationHandle, CURLOPT_WRITEDATA, (void*)&response);
@@ -71,17 +74,30 @@ void RestCall::initializeAvailableCashHandle() {
     headers = curl_slist_append(headers, authorization.c_str());
     curl_easy_setopt(availableCashHandle, CURLOPT_HTTPHEADER, headers);
 
+    curl_easy_setopt(availableCashHandle, CURLOPT_SSL_VERIFYPEER, 0);
     curl_easy_setopt(availableCashHandle, CURLOPT_WRITEFUNCTION, RestCall::WriteMemoryCallback);
     curl_easy_setopt(availableCashHandle, CURLOPT_WRITEDATA, (void*)&response);
 }
 
 void RestCall::authenticate() {
+    static bool retried = false;
+
     CURLcode returnCode = curl_easy_perform(authenticationHandle);
     if (returnCode != CURLE_OK) {
         fprintf(stderr, "RestCall::authenticate: curl_easy_perform() failed: %s\n", curl_easy_strerror(returnCode));
         this->logFailureData(authenticationHandle);
+
+        if (!retried) {
+            retried = true;
+            curl_easy_cleanup(authenticationHandle);
+            this->initializeAuthenticationHandle();
+            this->authenticate();
+        }
+
+        return;
     }
     else {
+        retried = false;
         response.log();
     }
 
@@ -92,8 +108,10 @@ void RestCall::authenticate() {
 std::vector<Tick> RestCall::quotes() {
     CURLcode ret = curl_easy_perform(quotesHandle);
     if(ret != CURLE_OK) {
-        fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(ret));
+        fprintf(stderr, "RestCall::quotes curl_easy_perform() failed: %s\n", curl_easy_strerror(ret));
         this->logFailureData(quotesHandle);
+        curl_easy_cleanup(quotesHandle);
+        this->initializeQuotesHandle();
         return std::vector<Tick>();
     }
     else {
@@ -245,6 +263,8 @@ void RestCall::logFailureData(CURL* _handle) const {
     char* data;
     curl_easy_getinfo(_handle, CURLINFO_EFFECTIVE_URL, &data);
     std::cout << "Last Url: " << data << std::endl;
-    curl_easy_getinfo(_handle, CURLINFO_RESPONSE_CODE, &data);
-    std::cout << "Response Code: " << data << std::endl;
+
+    int responseCode;
+    curl_easy_getinfo(_handle, CURLINFO_RESPONSE_CODE, &responseCode);
+    std::cout << "Response Code: " << responseCode << std::endl;
 }

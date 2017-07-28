@@ -15,7 +15,7 @@ class Market {
 public:
     Market();
 
-    void waitForNextOpening() const;
+    void waitForNextOpening(const MarketInfo& _restCall) const;
     void waitForMinute() const;
 
     bool isOpen() const;

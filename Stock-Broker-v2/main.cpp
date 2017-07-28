@@ -53,7 +53,8 @@ void runStocks() {
 
     std::cout << "~-~-~Application Start Up~-~-~" << std::endl;
 
-    market.waitForNextOpening();
+    MarketInfo marketInfo = restCall.getInfoForToday();
+    market.waitForNextOpening(marketInfo);
 
     while(true) {
         FileManager::initForWriting();
@@ -76,7 +77,8 @@ void runStocks() {
         std::cout << "Closed: ";
         Dates::outputCurrentTime();
 
-        market.waitForNextOpening();
+        marketInfo = restCall.getInfoForToday();
+        market.waitForNextOpening(marketInfo);
     }
 }
 
