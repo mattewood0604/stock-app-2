@@ -83,7 +83,9 @@ void FileManager::readTicks(Stock& _stock, const std::string& _date) {
         return;
     }
     else {
-        std::cout << "NO TICKS FOR " << _stock.getSymbol() << " on " << _date << std::endl;
+        if (Constants::logNoReadableTicks) {
+            std::cout << "NO TICKS FOR " << _stock.getSymbol() << " on " << _date << std::endl;
+        }
     }
 
     std::string name = this->readDirectory + "/" + _date + "/" + _stock.getSymbol() + ".csv";

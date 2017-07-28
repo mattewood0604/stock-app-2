@@ -12,8 +12,8 @@
 // int argc, const char * argv[]
 int main() {
     Broker broker;
-    // broker.run();
-    broker.test();
+    broker.run();
+    //broker.test();
 
     // Maximizer maximizer("JNUG");
     // maximizer.maximizeZigZag();

@@ -18,6 +18,7 @@ public:
     static const bool logBuySell;
     static const bool logProfits;
     static const bool logResponse;
+    static const bool logNoReadableTicks;
 
     static const bool clearOrderAtDayEnd;
 

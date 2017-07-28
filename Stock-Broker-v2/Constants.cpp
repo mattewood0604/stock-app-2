@@ -13,5 +13,6 @@ const bool Constants::logCandles = false;
 const bool Constants::logBuySell = false;
 const bool Constants::logProfits = true;
 const bool Constants::logResponse = false;
+const bool Constants::logNoReadableTicks = false;
 
 const bool Constants::clearOrderAtDayEnd = false;
