@@ -9,11 +9,6 @@
 #include "Broker.hpp"
 #include "Maximizer.hpp"
 
-#include "RestCall.hpp"
-
-#include <iostream>
-#include <future>
-
 // int argc, const char * argv[]
 int main() {
     Broker broker;

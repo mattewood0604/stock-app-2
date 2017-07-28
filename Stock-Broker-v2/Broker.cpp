@@ -97,7 +97,7 @@ void Broker::addTicksToStocks(const std::vector<Tick>& _ticks) {
     for (unsigned int i = 0; i < this->stocks.size(); i++) {
         for (unsigned int j = 0; j < _ticks.size(); j++) {
             if (_ticks[j].getSymbol().compare(this->stocks[i]->getSymbol()) == 0) {
-                std::cout << _ticks[j].getSymbol() << " == " << this->stocks[i]->getSymbol() << std::endl;
+                //std::cout << _ticks[j].getSymbol() << " == " << this->stocks[i]->getSymbol() << std::endl;
             }
         }
     }
